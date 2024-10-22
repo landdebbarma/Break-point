@@ -8,7 +8,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     
     echo "<script>
         alert('You have been logged out successfully.');
-        window.location.href = 'login';
+        window.location.href = '/break-point/admin/login';
     </script>";
     exit;
 }
