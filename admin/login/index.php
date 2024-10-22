@@ -1,3 +1,41 @@
+<?php
+  session_start();
+
+  $host = "localhost";
+  $user = "root";
+  $pass = "";
+  $db = "breakpoint";
+
+  try {
+      $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $username = $_POST['username'];
+          $password = $_POST['password'];
+
+          $stmt = $pdo->prepare("SELECT hashedPassword FROM users WHERE username = :username");
+          $stmt->bindParam(':username', $username);
+          $stmt->execute();
+
+          $user = $stmt->fetch(PDO::FETCH_ASSOC);
+          if ($user && password_verify($password, $user['hashedPassword'])) {
+              $_SESSION['loggedin'] = true;
+              echo "<script>
+                      alert('You have logged in successfully.');
+                      window.location.href = '../'; // Change this to your intended redirect path
+                    </script>";
+          } else {
+              echo "Invalid username or password.";
+          }
+      }
+  } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+  }
+?>
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,14 +55,15 @@
                 <h4>Login to Admin</h4>
               </div>
               <div class="card-body">
-                <form>
+                <form method="POST" action="">
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email here" aria-describedby="emailHelp">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username here" onkeyup="validateUsername()">
+                    <span id="usernameError" style="color: red; display: none;">Invalid username. Only letters and numbers are allowed.</span>
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password here">
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter your password here">
                   </div>
                   
                   <button type="submit" class="btn btn-primary">Submit</button>
@@ -40,7 +79,29 @@
       </div>
     </div>
 
+    <script>
+      function validateUsername() {
+          const usernameInput = document.getElementById('username');
+          const errorSpan = document.getElementById('usernameError');
+          const username = usernameInput.value;
+
+          if (username === '') {
+              errorSpan.textContent = 'Username required';
+              errorSpan.style.display = 'block'; 
+          } 
+          
+          else if (!/^[a-z\d]+$/i.test(username)) {
+              errorSpan.textContent = 'Invalid username. Only letters and numbers are allowed.';
+              errorSpan.style.display = 'block'; 
+          } 
+          else {
+              errorSpan.style.display = 'none';
+          }
+      }
+    </script>
+
     
+
     <script src="../assets/js/jquery-3.7.1.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
   </body>
