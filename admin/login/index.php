@@ -36,15 +36,7 @@
 
 
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Page</title>
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
+<?php include('../includes/header.php')?>
     
     <div class="py-5">
       <div class="container">
@@ -67,6 +59,7 @@
                   </div>
                   
                   <button type="submit" class="btn btn-primary">Submit</button>
+                  <a href="/break-point/admin/login/forgotPass" class="px-4">Forgot Password?</a>
                 </form>
               </div>
               <div class="p-4">
@@ -102,7 +95,4 @@
 
     
 
-    <script src="../assets/js/jquery-3.7.1.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+<?php include('../includes/footer.php')?>
