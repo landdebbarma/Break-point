@@ -80,6 +80,10 @@ nav .logo img{
     height: 60px;
 
 }
+.section-1-items:hover  img{
+    transform: scale(1.15);
+}
+
 
 
 /*sliding offer*/
@@ -213,6 +217,9 @@ span{
     display: flex;
     flex-wrap: wrap;
     margin: -100px 10px 10px 10px;
+}
+.box:hover img{
+    transform: scale(1.1);
 }
 
 /*iteam*/
