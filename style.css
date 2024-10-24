@@ -108,7 +108,8 @@ nav .logo img{
 /*about*/
 
 #about .container4 {
-    margin-top: 100px;
+    margin-top: 200px;
+    margin-bottom: 200px;
     display: flex;
     padding: 0 50px;
     align-items: center;
@@ -126,10 +127,10 @@ span{
     color: red;
 }
 
-/*add offer */
+/*todays special offer baner */
 
 #add-offer h2{
-    margin-top: 150px;
+    margin-top: 78px;
     text-align: center;
 }
 
@@ -140,7 +141,7 @@ span{
 }
 
 .todays-special{
-    margin-top: 100px;
+    margin-top: 15px;
     height: 300px;
     display: flex;
     align-items: center;
