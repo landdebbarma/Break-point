@@ -4,7 +4,7 @@ require '../../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable('C:/xampp/htdocs/break-point/');
 $dotenv->load();
 
 function generateOTP() {
