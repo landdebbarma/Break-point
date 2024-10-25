@@ -58,9 +58,8 @@ if (isset($_SESSION['uuid'])) {
                                 <?php echo htmlspecialchars($alertMessage); ?>
                             </div>
                             <script>
-                                // Show alert and redirect after 3 seconds
                                 setTimeout(function() {
-                                    window.location.href = '../'; // Change to your redirect URL
+                                    window.location.href = '../';
                                 }, 3000);
                             </script>
                         <?php endif; ?>
