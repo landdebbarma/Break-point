@@ -4,6 +4,9 @@ require '../../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 function generateOTP() {
     return rand(100000, 999999);
 }
@@ -44,8 +47,8 @@ if (isset($_POST['email'])) {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'coolmilibhagat@gmail.com';
-            $mail->Password   = 'oivy mhej vagh cyij';
+            $mail->Username   = $_ENV['SMTP_USERNAME'];
+            $mail->Password   = $_ENV['SMTP_PASSWORD'];
             $mail->SMTPSecure = 'tls';
             $mail->Port       = 587;
 
