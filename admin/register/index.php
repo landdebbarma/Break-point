@@ -8,9 +8,17 @@
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        function generateUUID() {
+          $data = openssl_random_pseudo_bytes(16);
+          $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // Set version to 0100
+          $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // Set bits 6-7 to 10
+          return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+        }
     
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $uuid = generateUUID();
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -18,8 +26,9 @@
             
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-            $stmt = $pdo->prepare("INSERT INTO users (username, email, hashedPassword) VALUES (:username, :email, :hashedPassword)");
+            $stmt = $pdo->prepare("INSERT INTO users (uuid, username, email, hashedPassword) VALUES (:uuid, :username, :email, :hashedPassword)");
     
+            $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':hashedPassword', $hashedPassword);
