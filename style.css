@@ -381,7 +381,7 @@ span{
     
 
     .container5 .todays-special{
-    gap: 10px;
+    gap: 1px;
     }
     .container5{
         margin-left: 0px;
@@ -400,6 +400,7 @@ span{
     }
     #footer .footer-title{
         margin-left: -1px;
+        font-size: 15px;
     }
 
     #container-1{
