@@ -95,7 +95,7 @@
 
 <body>
     <div class="container1">
-        <h1>BillBords</h1>
+        <h1>BillBoards</h1>
         <a href="#" class="button" id="button">creat here</a>
     </div>
 
