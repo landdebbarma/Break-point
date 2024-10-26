@@ -1,7 +1,7 @@
 <?php
     session_start();
-    if (isset($_POST['otp']) && isset($_POST['email'])) {
-        $email = $_POST['email'];
+    if (isset($_POST['otp']) && isset($_POST['verify-email'])) {
+        $email = $_SESSION['email'];
         $entered_otp = $_POST['otp'];
 
         $conn = new mysqli('localhost', 'root', '', 'breakpoint');

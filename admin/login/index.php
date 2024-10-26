@@ -14,13 +14,15 @@
           $username = $_POST['username'];
           $password = $_POST['password'];
 
-          $stmt = $pdo->prepare("SELECT hashedPassword FROM users WHERE username = :username");
+          $stmt = $pdo->prepare("SELECT hashedPassword, uuid FROM users WHERE username = :username");
           $stmt->bindParam(':username', $username);
           $stmt->execute();
 
           $user = $stmt->fetch(PDO::FETCH_ASSOC);
           if ($user && password_verify($password, $user['hashedPassword'])) {
               $_SESSION['loggedin'] = true;
+              $_SESSION['uuid'] = $user['uuid'];
+
               echo "<script>
                       alert('You have logged in successfully.');
                       window.location.href = '../'; // Change this to your intended redirect path

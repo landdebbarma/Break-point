@@ -11,8 +11,8 @@ function generateOTP() {
     return rand(100000, 999999);
 }
 
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
+if (isset($_POST['verify-email'])) {
+    $email = $_POST['verify-email'];
     $otp = generateOTP();
 
     $conn = new mysqli('localhost', 'root', '', 'breakpoint');
