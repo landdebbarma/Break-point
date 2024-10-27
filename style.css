@@ -103,7 +103,7 @@ nav .logo img{
 
 }
 @keyframes slide{
-    20%{background-image: url(img/yes2.png);}
+    10%{background-image: url(img/yes2.png);}
     25%{background-image: url(img/Screenshot\ 2024-10-15\ at\ 5.11.59\ PM.png);}
     50%{background-image: url(img/Screenshot\ 2024-10-15\ at\ 5.15.22\ PM.png);}
     100%{background-image: url(img/Screenshot\ 2024-10-15\ at\ 5.17.29\ PM.png);}
@@ -296,7 +296,7 @@ span{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     background-color: rgb(153, 154, 154);
-    padding: 25px 2%;
+    padding: 15px 2%;
 }
 #footer div{
     display: flex;
@@ -309,8 +309,8 @@ span{
     margin-bottom:15px;
 }
 .footer-items{
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 10px;
+    font-weight: 400;
     color: rgb(245, 245, 245);
 }
 .footer-items i{
@@ -398,6 +398,7 @@ span{
         margin-left: 0;
         margin-right: 0;
     }
+  
     #footer .footer-title{
         margin-left: -1px;
         font-size: 15px;
