@@ -1,126 +1,83 @@
-<?php include('../includes/header.php')?>
-<?php include('../includes/navbar.php')?>
-<!doctype html>
-<html lang="en">
+<?php include('../includes/header.php') ?>
+<?php include('../includes/navbar.php') ?>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, intial-scale=1.0">
-        <title>Billboards</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     
-
-      <style>
-        .container1{
-            display:flex;
-            background:white;
-            position:absolute;
-            width:100%;
-            margin: 10px auto;
-            background: white;
+<div class="container1"
+    style="
+        display: flex; 
+        background: white; 
+        position: absolute; 
+        width: 100%; 
+        margin: 10px auto; 
+        border-radius: 30px; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+        padding: 20px;">
+    <h1 class="fs-1 fw-bold tracking-tight">Billboards</h1>
+    <button type="button" class="btn btn-primary"
+        style=" 
+            background: cornflowerblue;
+            padding: 10px 15px;
+            color: black;
+            font-weight: bolder;
+            font-size: 15px;
             border-radius: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-           }
-           h1:hover{
-            font-size:50px;
-            color:red;
-           }
-        
-        .button{
-            background:cornflowerblue;
-            padding:10px 15px;
-            color:black;
-            font-weight:bolder;
-            font-size:15px;
-            border-radius:30px;
-            text-decoration:none;
-            margin:10px 10px 10px auto;
-        }
-        .button:hover{
-            background:black;
-            color:white;
-        }
-
-        .popup{
-            background:white;
-            width:100%;
-            height:100%;
-            margin-top:200px;
-            margin-bottom:200px;
-            position: absolute;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            top:0;
-            display:none;
-
-          }
-         
-        input {
-            width: 50%;
-            padding: 10px;
-            margin:10px 50px 4px 500px;
-            border: 1px solid #ccc;
-            border-radius: 40px;
-        }
-        .save{
-            background:cornflowerblue;
-            color:black;
-            font-weight:bolder;
-            font-size:15px;
-            border-radius:30px;
-            text-decoration:none;
-            margin:10px 10px 10px 626px;
-            width: 100px;
-            height:50px;
-        }
-        .cancel{
-            background:cornflowerblue;
-            color:black;
-            font-weight:bolder;
-            font-size:15px;
-            border-radius:30px;
-            text-decoration:none;
-            width: 100px;
-            height:50px;
-        }
-
-       
+            text-decoration: none;
+            margin: 10px 10px 10px auto;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Create New
+    </button>
+</div>
 
 
-      </style>
-</head>
-
-<body>
-    <div class="container1">
-        <h1>Billboards</h1>
-        <a href="#" class="button" id="button">Create New</a>
+<div class="modal fade modal-dialog modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="billboardForm" action="billboard.php" method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Billboard</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="billboard_name" placeholder="name@example.com">
+                        <label for="floatingInput">Billboard Name</label>
+                    </div>
+                    <label for="imageUpload" class="py-2">Upload an image</label>
+                    <input type="file" name="image" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelButton" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 
-    <div class="popup">
-
-    <form class="form"> 
-
-  <input type="text" placeholder="new billboard name"><br>
-  <input type="file"><br><br>
-  <button class="save" type="submit">Save</button>
-  <button class="cancel" type="submit">Cancel</button>
-
-      </form> 
-
-    </div>
-
-</body>
-       
+<?php include('../includes/footer.php') ?>
 
 <script>
-    document.getElementById("button").addEventListener("click", function(){
-        document.querySelector(".popup").style.display = "flex";  
-    })
+    document.getElementById("billboardForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch("billboard.php", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+
+                let modal = bootstrap.Modal.getInstance(document.querySelector("#staticBackdropLabel").closest(".modal"));
+                modal.hide();
+
+                document.getElementById("billboardForm").reset();
+            })
+            .catch(error => console.error("Error:", error));
+    });
 </script>
-    
-
-
-</html>    
-    
-<?php include('../includes/footer.php')?>
+<script>
+    document.getElementById("cancelButton").addEventListener("click", function() {
+        document.getElementById("billboardForm").reset();
+    });
+</script>
