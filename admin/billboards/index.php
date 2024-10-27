@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, intial-scale=1.0">
-        <title>BREAK POINT</title>
+        <title>Billboards</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
      
@@ -85,8 +85,6 @@
             height:50px;
         }
 
-        }
-
        
 
 
@@ -95,8 +93,8 @@
 
 <body>
     <div class="container1">
-        <h1>BillBoards</h1>
-        <a href="#" class="button" id="button">creat here</a>
+        <h1>Billboards</h1>
+        <a href="#" class="button" id="button">Create New</a>
     </div>
 
     <div class="popup">
@@ -105,8 +103,8 @@
 
   <input type="text" placeholder="new billboard name"><br>
   <input type="file"><br><br>
-  <button class="save" type="submit">save</button>
-  <button class="cancel" type="submit">cancel</button>
+  <button class="save" type="submit">Save</button>
+  <button class="cancel" type="submit">Cancel</button>
 
       </form> 
 
