@@ -89,15 +89,18 @@
             <h5>Change Password</h5>
             <form id="change-password-form">
                 <input type="hidden" name="action" value="change-password">
-                <label for="current-password">Current Password</label>
-                <input type="password" id="current-password" name="current-password" placeholder="Enter your current password" required>
-
-                <label for="new-password">New Password</label>
-                <input type="password" id="new-password" name="new-password" placeholder="Enter your new password" required>
-
-                <label for="confirm-password">Confirm New Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password" required>
-
+                <div class="form-floating mb-3">
+                    <input type="password" id="current-password" class="form-control" name="current-password" placeholder="" required>
+                    <label for="floatingInput">Current Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" id="new-password" class="form-control" name="new-password" placeholder="" required>
+                    <label for="floatingInput">New Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" id="confirm-password" class="form-control" name="confirm-password" placeholder="" required>
+                    <label for="floatingInput">Confirm New Password</label>
+                </div>
                 <button type="submit">Change Password</button>
 
             </form>
@@ -108,12 +111,14 @@
             <h5>Change Username</h5>
             <form id="change-username-form">
                 <input type="hidden" name="action" value="change-username">
-                <label for="current-username">Current Username</label>
-                <input type="text" id="current-username" name="current-username" placeholder="Enter your current username">
-
-                <label for="new-username">New Username</label>
-                <input type="text" id="new-username" name="new-username" placeholder="Enter your new username" required>
-
+                <div class="form-floating mb-3">
+                    <input type="text" id="current-username" name="current-username" class="form-control" placeholder="" required>
+                    <label for="floatingInput">Current Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="new-username" name="new-username" class="form-control" placeholder="" required>
+                    <label for="floatingInput">New Username</label>
+                </div>
                 <button type="submit">Change Username</button>
             </form>
         </div>
@@ -121,15 +126,16 @@
         <div class="section">
             <h5>Verify Email</h5>
             <form id="verify-email-form" method="POST">
-                <label for="email">Email</label>
-                <div style="display: flex; align-items: center;">
-                    <input type="text" id="verify-email" name="verify-email" placeholder="Enter Email" style="flex: 0 0 70%; margin-right: 10px;" required>
+                <div class="form-floating mb-3" style="display: flex; align-items: center;">
+                    <input type="text" id="verify-email" name="verify-email" class="form-control" placeholder="" style="flex: 0 0 70%; margin-right: 10px;" required>
+                    <label for="floatingInput">Enter Email</label>
                     <button type="submit" id="sendOtpButton" name="register" onclick="submitForm('/break-point/admin/login/forgotPass/sendOTP.php')">Send OTP</button>
                 </div>
 
-                <label for="otp">OTP</label>
-                <input type="text" id="otp" name="otp" placeholder="Enter OTP sent to your email">
-
+                <div class="form-floating mb-3">
+                    <input type="text" id="otp" name="otp" class="form-control" placeholder="">
+                    <label for="floatingInput">Enter OTP</label>
+                </div>
                 <button type="submit" name="verify" id="verifyButton" onclick="submitForm('/break-point/admin/login/forgotPass/verify.php')">Verify</button>
             </form>
         </div>
@@ -138,15 +144,19 @@
             <h5>Change Email</h5>
             <form id="change-email-form">
                 <input type="hidden" name="action" value="change-email">
-                <label for="current-email">Current Email</label>
-                <input type="email" id="current-email" name="current-email" placeholder="Enter your current email">
+                <div class="form-floating mb-3">
+                    <input type="email" id="current-email" name="current-email" class="form-control" placeholder="">
+                    <label for="floatingInput">Current Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" id="new-email" name="new-email" class="form-control" placeholder="" required>
+                    <label for="floatingInput">New Email</label>
+                </div>
 
-                <label for="new-email">New Email</label>
-                <input type="email" id="new-email" name="new-email" placeholder="Enter your new email" required>
-
-                <label for="confirm-email">Confirm New Email</label>
-                <input type="email" id="confirm-email" name="confirm-email" placeholder="Confirm your new email" required>
-
+                <div class="form-floating mb-3">
+                    <input type="email" id="confirm-email" name="confirm-email" class="form-control" placeholder="" required>
+                    <label for="floatingInput">Confirm New Email</label>
+                </div>
                 <button type="submit">Change Email</button>
             </form>
         </div>
