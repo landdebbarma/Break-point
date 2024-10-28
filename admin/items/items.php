@@ -5,7 +5,8 @@ include_once("../../config/dbcon.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
     if (isset($_SESSION['uuid'])) {
         $item_name = $_POST["item_name"];
-        $category_name = $_POST["category_name"]; // Get the category name from the form
+        $category_name = $_POST["category_name"];
+        $item_description = $_POST["item_description"];
         $user_uuid = $_SESSION['uuid'];
         $itemId = bin2hex(random_bytes(16));
 
@@ -18,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
             $imagePath = $uploadDir . $imageName;
 
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                // Insert the item into the menuItems table using categoryName
-                $stmt = $pdo->prepare("INSERT INTO menuItems (itemId, itemName, imageUrl, user_uuid, categoryName) VALUES (:itemId, :Name, :imageUrl, :user_uuid, :categoryName)");
+                $stmt = $pdo->prepare("INSERT INTO menuItems (itemId, itemName, imageUrl, user_uuid, categoryName, itemDescription) VALUES (:itemId, :Name, :imageUrl, :user_uuid, :categoryName, :item_description)");
                 $stmt->bindParam(':itemId', $itemId);
                 $stmt->bindParam(':Name', $item_name);
                 $stmt->bindParam(':imageUrl', $imagePath);
                 $stmt->bindParam(':user_uuid', $user_uuid);
-                $stmt->bindParam(':categoryName', $category_name); // Bind categoryName here
+                $stmt->bindParam(':categoryName', $category_name);
+                $stmt->bindParam(':item_description', $item_description);
                 $stmt->execute();
 
                 echo "Item uploaded successfully!";

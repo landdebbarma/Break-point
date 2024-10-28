@@ -67,6 +67,10 @@ try {
                             ?>
                         </select>
                     </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" aria-label="With textarea" name="item_description" placeholder=""></textarea>
+                        <label for="floatingInput">Item Description</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="cancelButton" data-bs-dismiss="modal">Cancel</button>
