@@ -19,7 +19,7 @@ try {
     style="
         display: flex; 
         background: white; 
-        position: absolute; 
+        position: relative; 
         width: 100%; 
         margin: 10px auto; 
         border-radius: 30px; 
@@ -42,8 +42,8 @@ try {
 </div>
 
 
-<div class="modal fade modal-dialog modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form id="itemForm" action="items.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
@@ -78,6 +78,46 @@ try {
                 </div>
             </form>
         </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <?php
+        include '../../config/dbcon.php';
+
+        try {
+            $stmt = $pdo->query("SELECT itemName, itemDescription, imageUrl FROM menuitems");
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
+                $itemName = htmlspecialchars($row['itemName']);
+                $itemDescription = htmlspecialchars($row['itemDescription']);
+                $imageSrc = "../../" . htmlspecialchars($imageUrl);
+
+                echo <<<HTML
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem; height: 27rem;">
+                        <img src="$imageSrc" style="height: 18rem; object-fit: cover; object-position: center;" class="card-img-top" alt="$itemName">
+                        <div class="card-body">
+                            <h5 class="card-title">$itemName</h5>
+                            <p class="card-text text-truncate">$itemDescription</p>
+                            <div class="d-flex align-items-center">
+                                <a href="#" class="btn btn-primary me-auto">Edit</a>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Out of Stock</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                HTML;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        ?>
+
     </div>
 </div>
 
