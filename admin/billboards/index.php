@@ -5,7 +5,7 @@
     style="
         display: flex; 
         background: white; 
-        position: absolute; 
+        position: relative; 
         width: 100%; 
         margin: 10px auto; 
         border-radius: 30px; 
@@ -27,8 +27,8 @@
 </div>
 
 
-<div class="modal fade modal-dialog modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form id="billboardForm" action="billboard.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
