@@ -42,6 +42,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
         }
     }
 
+    // Handle update action
+    elseif ($_POST["action"] === "update" && isset($_POST["itemId"])) {
+        $itemId = $_POST["itemId"];
+        if (empty($itemId)) {
+            echo "Error: itemId is empty.";
+            exit;
+        }
+        $newData = [
+            "itemName" => $_POST["item_name"],
+            "itemDescription" => $_POST["item_description"],
+            "categoryName" => $_POST["category_name"],
+            "inStock" => isset($_POST["inStock"])
+        ];
+
+        // Fetch existing data for comparison
+        $query = $pdo->prepare("SELECT * FROM menuitems WHERE itemId = :itemId");
+        if (!$query->execute([":itemId" => $itemId])) {
+            // Output error message if the execution fails
+            echo "Query execution failed: " . implode(", ", $query->errorInfo());
+            exit; // Stop execution
+        }
+        $existingData = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingData === false) {
+            echo "Error: Item not found or query failed.";
+            exit; // Stop execution if the item is not found
+        }
+
+        // Track changed fields
+        $updateFields = [];
+        $params = [":itemId" => $itemId];
+
+        // Ensure that the keys you're accessing exist in the $existingData
+        $validKeys = ['itemName', 'itemDescription', 'categoryName', 'inStock'];
+        foreach ($validKeys as $key) {
+            if (!array_key_exists($key, $existingData)) {
+                echo "Error: Missing expected data for key '$key'.";
+                exit;
+            }
+        }
+
+        foreach ($newData as $key => $value) {
+            if ($value !== $existingData[$key]) {
+                $updateFields[] = "$key = :$key";
+                $params[":$key"] = $value;
+            }
+        }
+
+        // Handle image upload if a new image is provided
+        if (!empty($_FILES["image"]["name"])) {
+            $uploadDir = "../../img/uploads/Items/";
+            $imageName = basename($_FILES["image"]["name"]);
+            $imagePath = $uploadDir . $imageName;
+
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+                $updateFields[] = "imageUrl = :imageUrl";
+                $params[":imageUrl"] = $imagePath;
+            } else {
+                echo "Image upload failed.";
+                exit;
+            }
+        }
+
+        // Run update if there are changes
+        if ($updateFields) {
+            $stmt = $pdo->prepare("UPDATE menuitems SET " . implode(", ", $updateFields) . " WHERE itemId = :itemId");
+            if ($stmt->execute($params)) {
+                echo "Item updated successfully!";
+            } else {
+                echo "Update failed.";
+            }
+        } else {
+            echo "No changes detected.";
+        }
+    }
+
     // Handle delete action
     if ($_POST["action"] == "delete") {
         if (isset($_POST['itemName'])) {

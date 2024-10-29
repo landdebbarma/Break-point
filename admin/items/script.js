@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     editModal.querySelector('textarea[name="item_description"]').value =
       itemDescription;
     editModal.querySelector(".modal-body img").src = imageUrl;
+    editModal.querySelector('input[name="current_image"]').value = imageUrl;
     editModal.querySelector('select[name="category_name"]').value = category;
     editModal.querySelector("#flexSwitchCheckDefault").checked = inStock;
     editModal.querySelector(".modal-title").textContent =
@@ -91,24 +92,85 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Handle delete form submission
-document.getElementById("deleteForm").addEventListener("submit", function(event) {
+document.getElementById("deleteForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
   let formData = new FormData(this);
 
   fetch("items.php", {
-      method: "POST",
-      body: formData,
+    method: "POST",
+    body: formData,
   })
-  .then((response) => response.text())
-  .then((data) => {
-      alert(data); // Display the response message as an alert
+    .then((response) => response.text())
+    .then((data) => {
+      alert(data);
 
-      // Hide the delete modal
       let modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
       modal.hide();
 
       window.location.reload();
-  })
-  .catch((error) => console.error("Error:", error));
+    })
+    .catch((error) => console.error("Error:", error));
+});
+
+// Handle update
+document.addEventListener("DOMContentLoaded", function () {
+  const editModal = document.getElementById("editModal");
+  let initialData = {};
+
+  editModal.addEventListener("show.bs.modal", function (event) {
+    const button = event.relatedTarget;
+    const itemId = button.getAttribute("data-id");
+    
+
+    // Populate fields and store initial data
+    initialData = {
+      itemId,
+      itemName: button.getAttribute("data-name"),
+      itemDescription: button.getAttribute("data-description"),
+      imageUrl: button.getAttribute("data-image"),
+      category: button.getAttribute("data-category"),
+      inStock: button.getAttribute("data-stock") !== "1"
+    };
+    // console.log(initialData.itemId);
+
+    editModal.querySelector('input[name="item_name"]').value = initialData.itemName;
+    editModal.querySelector('textarea[name="item_description"]').value = initialData.itemDescription;
+    editModal.querySelector(".modal-body img").src = initialData.imageUrl;
+    editModal.querySelector('select[name="category_name"]').value = initialData.category;
+    editModal.querySelector("#flexSwitchCheckDefault").checked = initialData.inStock;
+    editModal.querySelector(".modal-title").textContent = `Edit Menu Item: ${initialData.itemName}`;
+    editModal.querySelector('input[name="itemId"]').value = initialData.itemId;
+  });
+
+  document.getElementById("editForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const formData = new FormData();
+
+    const fields = [
+      { name: 'item_name', value: editModal.querySelector('input[name="item_name"]').value },
+      { name: 'item_description', value: editModal.querySelector('textarea[name="item_description"]').value },
+      { name: 'category_name', value: editModal.querySelector('select[name="category_name"]').value },
+      { name: 'inStock', value: editModal.querySelector("#flexSwitchCheckDefault").checked ? "0" : "1" },
+      { name: 'image', value: editModal.querySelector('input[type="file"]').files[0] }
+    ];
+
+    fields.forEach(field => {
+      if (field.value !== initialData[field.name]) {
+        formData.append(field.name, field.value);
+      }
+    });
+
+    formData.append("itemId", initialData.itemId);
+    formData.append("action", "update");
+
+    fetch("items.php", { method: "POST", body: formData })
+      .then(response => response.text())
+      .then(data => {
+        alert(data);
+        bootstrap.Modal.getInstance(editModal).hide();
+        location.reload();
+      })
+      .catch(error => console.error("Error:", error));
+  });
 });

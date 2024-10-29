@@ -79,7 +79,9 @@ try {
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form id="editForm" action="items.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="action" value="edit">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="itemId" id="itemId" value="">
+                <input type="hidden" name="current_image" value=""> 
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="editModalLabel">Edit Menu Item</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -109,7 +111,7 @@ try {
                         <label for="floatingInput">Item Description</label>
                     </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="out_of_stock">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="inStock">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Out of Stock</label>
                     </div>
                 </div>
@@ -129,6 +131,7 @@ try {
             <form id="deleteForm" action="items.php" method="POST">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="itemName" id="deleteItemName" value="">
+                <input type="hidden" name="itemId" id="deleteitemId" value="">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -150,7 +153,7 @@ try {
     <div class="row">
         <?php
         try {
-            $stmt = $pdo->query("SELECT itemName, itemDescription, imageUrl, categoryName, inStock FROM menuitems");
+            $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, categoryName, inStock FROM menuitems");
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
@@ -159,6 +162,7 @@ try {
                 $imageSrc = "../../" . htmlspecialchars($imageUrl);
                 $categoryName = htmlspecialchars($row['categoryName']);
                 $inStock = htmlspecialchars($row['inStock']);
+                $itemId = htmlspecialchars($row['itemId']);
 
                 echo <<<HTML
                 <div class="col-md-4 mb-4">
@@ -171,11 +175,12 @@ try {
                                 <a href="#" class="btn btn-primary edit-button" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#editModal"
+                                data-id="{$row['itemId']}"
                                 data-name="$itemName"
-                                data-description="$itemDescription"
                                 data-image="$imageSrc"
-                                data-category="{$row['categoryName']}"
                                 data-stock="{$row['inStock']}"
+                                data-description="$itemDescription"
+                                data-category="{$row['categoryName']}"
                                 >
                                 Edit
                                 </a>
@@ -183,6 +188,7 @@ try {
                                     data-bs-toggle="modal" 
                                     data-bs-target="#deleteModal" 
                                     data-item-name="$itemName"
+                                    data-id="{$row['itemId']}"
                                 >
                                     Delete
                                 </button>
