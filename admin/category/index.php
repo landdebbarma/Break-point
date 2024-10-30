@@ -53,6 +53,38 @@
     </div>
 </div>
 
+<div class="container my-5">
+    <div class="row">
+        <?php
+        include '../../config/dbcon.php';
+
+        try {
+            $stmt = $pdo->query("SELECT categoryName, imageUrl FROM menucategory");
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
+                $categoryName = htmlspecialchars($row['categoryName']);
+                $imageSrc = "../../" . htmlspecialchars($imageUrl);
+
+                echo <<<HTML
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem; height: 22rem;">
+                        <img src="$imageSrc" style="height: 18rem; object-fit: cover; object-position: center;" class="card-img-top" alt="$categoryName">
+                        <div class="card-body">
+                            <h5 class="card-title">$categoryName</h5>
+                        </div>
+                    </div>
+                </div>
+                HTML;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        ?>
+
+    </div>
+</div>
+
 <?php include('../includes/footer.php') ?>
 
 <script>
