@@ -48,6 +48,10 @@ try {
                         <input type="text" class="form-control" name="item_name" placeholder="">
                         <label for="floatingInput">Item Name</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="item_price" placeholder="">
+                        <label for="floatingInput">Item Price</label>
+                    </div>
                     <label for="imageUpload" class="py-2">Upload an image</label>
                     <input type="file" name="image" class="form-control">
                     <div class="input-group mb-3 py-4">
@@ -81,7 +85,7 @@ try {
             <form id="editForm" action="items.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="itemId" id="itemId" value="">
-                <input type="hidden" name="current_image" value=""> 
+                <input type="hidden" name="current_image" value="">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="editModalLabel">Edit Menu Item</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -91,6 +95,10 @@ try {
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="item_name" placeholder="">
                         <label for="floatingInput">Item Name</label>
+                    </div>              
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="item_Price" placeholder="">
+                        <label for="floatingInput">Item Price</label>
                     </div>
                     <label for="imageUpload" class="py-2">Upload new image</label>
                     <input type="file" name="image" class="form-control">
@@ -111,7 +119,7 @@ try {
                         <label for="floatingInput">Item Description</label>
                     </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="inStock">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="outOfStock">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Out of Stock</label>
                     </div>
                 </div>
@@ -153,7 +161,7 @@ try {
     <div class="row">
         <?php
         try {
-            $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, categoryName, inStock FROM menuitems");
+            $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, categoryName, outOfStock, price FROM menuitems");
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
@@ -161,8 +169,9 @@ try {
                 $itemDescription = htmlspecialchars($row['itemDescription']);
                 $imageSrc = "../../" . htmlspecialchars($imageUrl);
                 $categoryName = htmlspecialchars($row['categoryName']);
-                $inStock = htmlspecialchars($row['inStock']);
+                $outOfStock = htmlspecialchars($row['outOfStock']);
                 $itemId = htmlspecialchars($row['itemId']);
+                $itemPrice = htmlspecialchars($row['price']);
 
                 echo <<<HTML
                 <div class="col-md-4 mb-4">
@@ -172,26 +181,31 @@ try {
                             <h5 class="card-title">$itemName</h5>
                             <p class="card-text text-truncate">$itemDescription</p>
                             <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-primary edit-button" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#editModal"
-                                data-id="{$row['itemId']}"
-                                data-name="$itemName"
-                                data-image="$imageSrc"
-                                data-stock="{$row['inStock']}"
-                                data-description="$itemDescription"
-                                data-category="{$row['categoryName']}"
-                                >
-                                Edit
-                                </a>
-                                <button class="btn btn-danger delete-button" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#deleteModal" 
-                                    data-item-name="$itemName"
-                                    data-id="{$row['itemId']}"
-                                >
-                                    Delete
-                                </button>
+                                <label for="price"><strong>Price: ₹ $itemPrice</strong></label>
+                                <div>
+                                    <a href="#" 
+                                        class="btn btn-primary edit-button" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editModal"
+                                        data-id="{$row['itemId']}"
+                                        data-name="$itemName"
+                                        data-price="$itemPrice"
+                                        data-image="$imageSrc"
+                                        data-stock="{$row['outOfStock']}"
+                                        data-description="$itemDescription"
+                                        data-category="{$row['categoryName']}"
+                                    >
+                                    Edit
+                                    </a>
+                                    <button class="btn btn-danger delete-button" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal" 
+                                        data-item-name="$itemName"
+                                        data-id="{$row['itemId']}"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

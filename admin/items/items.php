@@ -2,11 +2,14 @@
 session_start();
 include_once("../../config/dbcon.php");
 
-// Handle create action
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
+
+    // Handle create action
     if ($_POST["action"] == "create" && isset($_FILES["image"])) {
         if (isset($_SESSION['uuid'])) {
             $item_name = $_POST["item_name"];
+            $item_price = $_POST["item_price"];
             $category_name = $_POST["category_name"];
             $item_description = $_POST["item_description"];
             $user_uuid = $_SESSION['uuid'];
@@ -21,9 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
                 $imagePath = $uploadDir . $imageName;
 
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                    $stmt = $pdo->prepare("INSERT INTO menuItems (itemId, itemName, imageUrl, user_uuid, categoryName, itemDescription) VALUES (:itemId, :Name, :imageUrl, :user_uuid, :categoryName, :item_description)");
+                    $stmt = $pdo->prepare("INSERT INTO menuItems (itemId, itemName, price, imageUrl, user_uuid, categoryName, itemDescription) VALUES (:itemId, :Name, :price, :imageUrl, :user_uuid, :categoryName, :item_description)");
                     $stmt->bindParam(':itemId', $itemId);
                     $stmt->bindParam(':Name', $item_name);
+                    $stmt->bindParam(':price', $item_price);
                     $stmt->bindParam(':imageUrl', $imagePath);
                     $stmt->bindParam(':user_uuid', $user_uuid);
                     $stmt->bindParam(':categoryName', $category_name);
@@ -51,9 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
         }
         $newData = [
             "itemName" => $_POST["item_name"],
+            "price" => $_POST["item_Price"],
             "itemDescription" => $_POST["item_description"],
             "categoryName" => $_POST["category_name"],
-            "inStock" => isset($_POST["inStock"])
+            "outOfStock" => $_POST["outOfStock"]
         ];
 
         // Fetch existing data for comparison
@@ -75,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
         $params = [":itemId" => $itemId];
 
         // Ensure that the keys you're accessing exist in the $existingData
-        $validKeys = ['itemName', 'itemDescription', 'categoryName', 'inStock'];
+        $validKeys = ['itemName', 'price', 'itemDescription', 'categoryName', 'outOfStock'];
         foreach ($validKeys as $key) {
             if (!array_key_exists($key, $existingData)) {
                 echo "Error: Missing expected data for key '$key'.";
@@ -84,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
         }
 
         foreach ($newData as $key => $value) {
-            if ($value !== $existingData[$key]) {
+            if ($value != $existingData[$key]) {
                 $updateFields[] = "$key = :$key";
                 $params[":$key"] = $value;
             }
