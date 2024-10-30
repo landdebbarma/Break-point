@@ -144,7 +144,7 @@ try {
                     <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-truncate">
                     Are you sure you want to delete <strong id="itemToDelete"></strong>?
                 </div>
                 <div class="modal-footer">
@@ -173,12 +173,17 @@ try {
                 $itemId = htmlspecialchars($row['itemId']);
                 $itemPrice = htmlspecialchars($row['price']);
 
+                $outOfStockLabel = $outOfStock == 1 ? "<label class='card-title mb-0 ms-3 flex-shrink-0'><strong>Out Of Stock</strong></label>" : "";
+
                 echo <<<HTML
                 <div class="col-md-4 mb-4">
                     <div class="card" style="width: 18rem; height: 27rem;">
                         <img src="$imageSrc" style="height: 18rem; object-fit: cover; object-position: center;" class="card-img-top" alt="$itemName">
                         <div class="card-body">
-                            <h5 class="card-title">$itemName</h5>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title text-truncate flex-grow-1">$itemName</h5>
+                                $outOfStockLabel
+                            </div>
                             <p class="card-text text-truncate">$itemDescription</p>
                             <div class="d-flex justify-content-between">
                                 <label for="price"><strong>Price: ₹ $itemPrice</strong></label>

@@ -129,6 +129,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
             $itemNameToDelete = $_POST['itemName'];
 
             try {
+                // Fetch the image path associated with the item from the database
+                $stmt = $pdo->prepare("SELECT imageUrl FROM menuItems WHERE itemName = :itemName");
+                $stmt->bindParam(':itemName', $itemNameToDelete);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                // Check if an image path was found
+                if ($result && !empty($result['imageUrl'])) {
+                    $imageUrl = $result['imageUrl'];
+
+                    // Attempt to delete the image file if it exists
+                    if (file_exists($imageUrl)) {
+                        unlink($imageUrl);
+                    }
+                }
+
                 $stmt = $pdo->prepare("DELETE FROM menuItems WHERE itemName = :itemName");
                 $stmt->bindParam(':itemName', $itemNameToDelete);
                 $stmt->execute();
