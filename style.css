@@ -8,7 +8,6 @@
 body{
     font-family: sans-serif;
     font-size: medium;
-
     background-color: #fff;
 
 }
@@ -22,16 +21,9 @@ a {
 
 
 nav{
-    position: fixed;
-    top:0;
-    left:0;
-    right: 0;
+
     background: #fff;
-    box-shadow: 0 3px 50px -7px rgba(0, 0, 0, 0.8);
-    padding: 25px 0;
-    z-index: 1;
-    
-    
+    padding: 25px 0; 
 }
 
  .text1 h2 {
@@ -58,17 +50,22 @@ nav .logo img{
 
 
 .section-1-container{
-    width: 1000px;
-    margin: 164px 120px 0 160px;
-    height: 312%;
+    width: 100%;
+    margin: -69px 0 0 -5px;
+    height: 78px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 94px 100px rgba(0, 0, 0, 0.2);
+
 
 }
 
 .section-1-items{
     height: 100%;
+    margin-bottom: 22px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,9 +86,9 @@ nav .logo img{
 /*sliding offer*/
 
 .section-2-container{
-    margin-top: 19px;
+    margin-top: 207px;
     width: 100%;
-    height: 280px;
+    height: 170px;
     object-fit: cover;
     background-image: url(img/Preview.webp);
     background-size: cover;
@@ -296,12 +293,18 @@ span{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     background-color: rgb(153, 154, 154);
+
     padding: 15px 2%;
+
+    padding: 25px 2%;
+    gap:20px;
+
 }
 #footer div{
     display: flex;
     flex-direction: column;
     row-gap:20px;
+    margin-left: 10px;
    
 }
 .footer-title{
@@ -311,6 +314,7 @@ span{
 .footer-items{
     font-size: 10px;
     font-weight: 400;
+    font-weight: 500;
     color: rgb(245, 245, 245);
 }
 .footer-items i{
@@ -332,6 +336,7 @@ span{
 /*responsive*/
 
 @media (max-width: 700px){
+
     
     nav .logo{
         height: 90px;
@@ -343,17 +348,18 @@ span{
     .text1 h2{
         font-size:15px;
         top: 140px;
-        left: 40px;
     }
 
     .container2 {
-        margin:0 0 0 0;
         display: flex;
         flex-direction: row;
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
     .section-1-container{
         gap: 32px;
-        margin: 151px 11px 0 11px;
+        margin: -9px 0 -135px 0;
     }
     
     .section-1-items img{
@@ -364,7 +370,7 @@ span{
 
 
     .container3{
-        margin-top: 30px;
+        margin-top: -93px;
     }
 
     .container5 h2{
@@ -381,8 +387,9 @@ span{
     
 
     .container5 .todays-special{
-    gap: 1px;
+    gap: 9px;
     }
+
     .container5{
         margin-left: 0px;
         margin-right: 0px;
@@ -390,13 +397,14 @@ span{
 
     .todays-special img{
         margin: 0 -2px 0 -2px;
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
+        
     }
     #footer{
-        gap: 10px;
+        gap: 67px;
         margin-left: 0;
-        margin-right: 0;
+        margin-right: 0px;
     }
   
     #footer .footer-title{
@@ -405,7 +413,7 @@ span{
     }
 
     #container-1{
-        margin-top: 200px;
+        margin-top: 274px;
         margin-left: -8px;
         flex-direction:row ;
         height: 100px;
