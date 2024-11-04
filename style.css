@@ -20,29 +20,42 @@ a {
 
 
 
-nav{
-
+nav {
     background: #fff;
     padding: 25px 0; 
 }
 
- .text1 h2 {
-    font-family:"Sofia", sans-serif;
-    position: absolute;
+.container1 {
+    display: flex; /* Use Flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space items with logo on left and text centered */
+    padding: 0 20px; /* Add horizontal padding for better spacing */
+}
+
+.left {
+    display: flex; /* Make .left a flex container */
+    align-items: center; /* Center logo and text vertically */
+    flex: 1; /* Allow .left to grow */
+}
+
+.text1 {
+    text-align: center; /* Center the text */
+    flex: 1; /* Allow text to take up remaining space */
+}
+
+.text1 h2 {
+    font-family: "Sofia", sans-serif;
     font-weight: bolder;
     color: red;
-    width: 100%;
-    text-align: center;
-    margin-top: -85px;
+    margin: 0; /* Remove default margin */
 }
 
-
-nav .logo img{
-     width: 90px;
-     position: relative;
-     left: 100px;
-     border-radius: 50%;  
+nav .logo img {
+    width: 90px;
+    border-radius: 50%;  
+    margin-right: 20px; /* Space between logo and text */
 }
+
 
 
 
