@@ -84,13 +84,13 @@ include_once '../../config/dbcon.php';
     <div class="row">
         <?php
         try {
-            $stmt = $pdo->query("SELECT billboardId, billboardName, imageUrl FROM billboards");
+            $stmt = $pdo->query("SELECT billboardName, imageUrl FROM billboards");
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
                 $billboardName = htmlspecialchars($row['billboardName']);
                 $imageSrc = "../../" . htmlspecialchars($imageUrl);
-                $billboardId = htmlspecialchars($row['billboardId']);
+                // $billboardId = htmlspecialchars($row['billboardId']);
 
                 echo <<<HTML
                 <div class="col-md-6 mb-4">

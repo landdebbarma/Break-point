@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
     if ($_POST["action"] == "create" && isset($_FILES["image"])) {
         $billboard_name = $_POST["billboard_name"];
         $user_uuid = $_SESSION['uuid'];
-        $billboardId = bin2hex(random_bytes(16));
 
         $allowedTypes = [
             "image/jpeg",
@@ -27,8 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
             $imagePath = $uploadDir . $imageName;
 
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                $stmt = $pdo->prepare("INSERT INTO billboards (billboardId, billboardName, imageUrl, user_uuid) VALUES (:billboardId, :Name, :imageUrl, :user_uuid)");
-                $stmt->bindParam(':billboardId', $billboardId);
+                $stmt = $pdo->prepare("INSERT INTO billboards (billboardName, imageUrl, user_uuid) VALUES (:Name, :imageUrl, :user_uuid)");
                 $stmt->bindParam(':Name', $billboard_name);
                 $stmt->bindParam(':imageUrl', $imagePath);
                 $stmt->bindParam(':user_uuid', $user_uuid);
@@ -49,17 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
             $billboardNameToDelete = $_POST['billboardName'];
 
             try {
-                // Fetch the image path associated with the billboard from the database
                 $stmt = $pdo->prepare("SELECT imageUrl FROM billboards WHERE billboardName = :billboardName");
                 $stmt->bindParam(':billboardName', $billboardNameToDelete);
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Check if an image path was found
                 if ($result && !empty($result['imageUrl'])) {
                     $imageUrl = $result['imageUrl'];
 
-                    // Attempt to delete the image file if it exists
                     if (file_exists($imageUrl)) {
                         unlink($imageUrl);
                     }

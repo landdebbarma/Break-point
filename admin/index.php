@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
     if ($searchTerm !== '') {
         $searchTerm = "%$searchTerm%";
 
-        $stmt = $pdo->prepare("SELECT billboardId, billboardName, imageUrl FROM billboards WHERE billboardName LIKE :searchTerm");
+        $stmt = $pdo->prepare("SELECT , billboardName, imageUrl FROM billboards WHERE billboardName LIKE :searchTerm");
         $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
         $stmt->execute();
         $billboardResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -42,14 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
         $stmt->execute();
         $itemResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } else {
-        $stmt = $pdo->query("SELECT billboardId, billboardName, imageUrl FROM billboards");
+        $stmt = $pdo->query("SELECT , billboardName, imageUrl FROM billboards");
         $billboardResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems");
         $itemResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } else {
-    $stmt = $pdo->query("SELECT billboardId, billboardName, imageUrl FROM billboards");
+    $stmt = $pdo->query("SELECT billboardName, imageUrl FROM billboards");
     $billboardResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems");
@@ -151,8 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
                                 $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
                                 $billboardName = htmlspecialchars($row['billboardName']);
                                 $imageSrc = "../" . htmlspecialchars($imageUrl);
-                                $billboardId = htmlspecialchars($row['billboardId']);
-
                                 echo <<<HTML
                                     <div class="col-md-6 mb-4">
                                         <div class="card" style="width: 35rem; height: 22rem;">
