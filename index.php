@@ -1,6 +1,4 @@
-<?php
-  include '/xampp/htdocs/Break-point/admin/includes/header.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,7 +209,3 @@
 </body>
 
 </html>
-
-<?php
-  include '/xampp/htdocs/Break-point/admin/includes/footer.php';
-?>
