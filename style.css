@@ -312,12 +312,9 @@ span{
 
 /*responsive*/
 
-@media (max-width: 700px){
-
+@media (max-width: 650px){
     
-    nav .logo{
-        height: 90px;
-    }
+
     nav .logo img{
         left: 10px;
     }
@@ -379,22 +376,23 @@ span{
         
     }
     #footer{
-        gap: 67px;
+        gap: 60px;
         margin-left: 0;
         margin-right: 0px;
     }
   
     #footer .footer-title{
-        margin-left: -1px;
+        margin-left: 8px;
         font-size: 15px;
     }
 
     #container-1{
-        margin-top: 274px;
+        margin-top: 173px;
         margin-left: -8px;
         flex-direction:row ;
         height: 100px;
         gap: 40px;
+        
     }
     #container-2{
         margin-top: 473px;
@@ -411,8 +409,9 @@ span{
     }
     .box{
         margin-left: 20px;
+        margin-top: -41px;
         margin-right: -43px;
-        margin-bottom: 149px;
+        margin-bottom: 44px;
         width: 174px;
         height: 250px;
         border-radius: 40px;
