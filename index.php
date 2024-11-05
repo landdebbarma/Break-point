@@ -125,7 +125,7 @@
 
   <section id="add-offer">
     <div class="container5">
-      <h2>Todays Special</h2>
+      <h2>Today's Special</h2>
       <div class="todays-special">
         <img src="img/tandoori-momo.webp" alt="" />
         <img src="img/tandoori-momo.webp" alt="" />
@@ -158,54 +158,57 @@
 
   <section id="footer">
     <div>
-      <h3 class="footer-title">support</h3>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
+        <h3 class="footer-title">address</h3>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            feedback</a>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            phone</a>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            email</a>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            </a>
     </div>
     <div>
-      <h3 class="footer-title">contacts</h3>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
+        <h3 class="footer-title">contacts</h3>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            Email</a>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            Instagram</a>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            whatsapp</a>
+        <a href="" class="footer-items">
+            <i class="fa-solid fa-chevron-right"></i>
+            phone</a>
     </div>
-    <div>
-      <h3 class="footer-title">privacy</h3>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-      <a href="" class="footer-items">
-        <i class="fa-solid fa-chevron-right"></i>
-        service</a>
-    </div>
-  </section>
-  <section id="copyright">
-    <p>&copy Break point | All right recived</p>
-  </section>
+        <div>
+
+            <h3 class="footer-title">Developer</h3>
+            <a href="https://github.com/Alam-Monir" class="footer-items">
+                <i class="fa-solid fa-chevron-right"></i>
+                Monir</a>
+            <a href="" class="footer-items">
+                <i class="fa-solid fa-chevron-right"></i>
+                Instagram</a>
+            <a href="https://github.com/landdebbarma" class="footer-items">
+                <i class="fa-solid fa-chevron-right"></i>
+                Land</a>
+            <a href="" class="footer-items">
+                <i class="fa-solid fa-chevron-right"></i>
+                Instagram</a>
+        </div>
+       
+       
+</section>
+<section id="copyright">
+    <p>&copy Break point   | All rights reserved</p>
+</section>
 </body>
 
 </html>
