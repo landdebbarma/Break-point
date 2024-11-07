@@ -13,7 +13,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="../style.css">
     <?php
-    include '/xampp/htdocs/Break-point/config/dbcon.php';
+    include ('../config/dbcon.php');
 
     $sql = "SELECT itemName, price, imageUrl FROM menuItems WHERE categoryName = :category";
     $stmt = $pdo->prepare($sql);

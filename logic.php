@@ -1,5 +1,5 @@
 <?php
-include '/xampp/htdocs/Break-point/config/dbcon.php';
+include ('config/dbcon.php');
 
 // Fetch image URLs from the billboards table
 try {
