@@ -7,7 +7,6 @@ try {
     $stmt = $pdo->query($query);
     $images = [];
 
-    // Process each URL
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
         $imageSrc = "" . htmlspecialchars($imageUrl);

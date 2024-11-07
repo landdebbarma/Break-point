@@ -71,7 +71,7 @@
       </section>
     </section>
 
-    <!--todys special-->
+    <!--today's special-->
 
     <section id="add-offer">
       <div class="container5">
@@ -90,15 +90,15 @@
     <section id="about">
       <div class="container4">
         <div class="left">
-          <h2>Discover The <span>BREAK POINT Teast</span></h2>
+          <h2>Discover The <span>BREAK POINT Taste</span></h2>
         </div>
 
         <div class="right">
           <p>
-            <strong>Welcome</strong> To The Break Point<br />Offer Good Quality
-            of Food And Beverage . Along with food can enjoy calm senario and
-            our resturent build is enhanced wiith fatched eoot and bamboo
-            bench.A beauty mixed with cuture
+            <strong>Welcome</strong> To The Break Point<br />We Offer Good
+            Quality of Food And Beverages. Along with food you can enjoy calm
+            scenario and our restaurant build is enhanced wiith fatched root and
+            bamboo benches. A beauty mixed with culture.
           </p>
         </div>
       </div>
@@ -166,7 +166,7 @@
     </section>
 
     <section id="copyright">
-      <p>&copy Break point | All right recived</p>
+      <p>&copy Break point | All rights reserved</p>
     </section>
   </body>
 </html>
@@ -174,18 +174,17 @@
 <script>
   fetch("logic.php")
     .then((response) => {
-      console.log("Fetch successful, checking response...");
+      // console.log("Fetch successful, checking response...");
       return response.json();
     })
     .then((images) => {
-      console.log("Received images:", images);
+      // console.log("Received images:", images);
 
       if (Array.isArray(images) && images.length > 0) {
-        console.log(
-          "Images array is not empty. Proceeding with keyframes generation."
-        );
+        // console.log(
+        //   "Images array is not empty. Proceeding with keyframes generation."
+        // );
 
-        // Declare keyframes with 'let' instead of 'const'
         let keyframes = images
           .map((imageUrl, index) => {
             const percentage = (index / images.length) * 100;
@@ -193,7 +192,6 @@
           })
           .join(" ");
 
-        // Add a final frame to loop back to the start
         keyframes += `100% { background-image: url('${images[0]}'); }`;
 
         const styleSheet = document.createElement("style");
