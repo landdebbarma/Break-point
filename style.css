@@ -1,28 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex: 1; /* This will expand to push the footer to the bottom */
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 100px;
 }
 
 body {
@@ -41,35 +19,21 @@ nav {
   padding: 25px 0;
 }
 
-.container1 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-
-.left {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
-.text1 {
-  text-align: center;
-  flex: 1;
-}
-
 .text1 h2 {
   font-family: "Sofia", sans-serif;
+  position: absolute;
   font-weight: bolder;
   color: red;
-  margin: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: -85px;
 }
 
 nav .logo img {
   width: 90px;
+  position: relative;
+  left: 100px;
   border-radius: 50%;
-  margin-right: 20px;
 }
 
 /*menu-items*/
@@ -212,7 +176,7 @@ span {
   transform: scale(1.1);
 }
 
-/*item*/
+/*iteam*/
 
 #item-name {
   color: rgb(8, 9, 9);
@@ -276,13 +240,14 @@ span {
 /*footer*/
 
 #footer {
-  background-color: rgb(153, 154, 154);
-  padding: 25px 2%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
-  position: relative; /* Ensure footer is separated from content */
-  z-index: 10;
+  background-color: rgb(153, 154, 154);
+
+  padding: 15px 2%;
+
+  padding: 25px 2%;
+  gap: 20px;
 }
 #footer div {
   display: flex;
@@ -314,7 +279,10 @@ span {
 
 /*responsive*/
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
+  nav .logo {
+    height: 90px;
+  }
   nav .logo img {
     left: 10px;
   }
@@ -371,18 +339,18 @@ span {
     height: 90px;
   }
   #footer {
-    gap: 60px;
+    gap: 67px;
     margin-left: 0;
     margin-right: 0px;
   }
 
   #footer .footer-title {
-    margin-left: 8px;
+    margin-left: -1px;
     font-size: 15px;
   }
 
   #container-1 {
-    margin-top: 173px;
+    margin-top: 274px;
     margin-left: -8px;
     flex-direction: row;
     height: 100px;
@@ -403,9 +371,8 @@ span {
   }
   .box {
     margin-left: 20px;
-    margin-top: -41px;
     margin-right: -43px;
-    margin-bottom: 44px;
+    margin-bottom: 149px;
     width: 174px;
     height: 250px;
     border-radius: 40px;
