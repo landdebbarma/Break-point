@@ -109,8 +109,25 @@ span {
 
 /*todays special offer baner */
 
-#add-offer .container5{
-  background: bisque;
+#add-offer h2 {
+  margin-top: 78px;
+  text-align: center;
+}
+
+.todays-special img {
+  width: 150px;
+  border-radius: 50%;
+}
+
+.todays-special {
+  margin-top: 15px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  background-color: bisque;
   box-shadow: 0 3px 50px -7px rgba(0, 0, 0, 0.3);
 }
 
