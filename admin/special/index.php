@@ -2,16 +2,6 @@
 include('../includes/header.php');
 include('../includes/navbar.php');
 include_once '../../config/dbcon.php';
-
-try {
-    $query = "SELECT categoryName FROM menuCategory";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-
-    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error fetching categories: " . $e->getMessage();
-}
 ?>
 
 <div class="container1"
@@ -25,7 +15,7 @@ try {
         border-radius: 30px; 
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
         padding: 20px;">
-    <h1 class="fs-1 fw-bold tracking-tight">Menu Items</h1>
+    <h1 class="fs-1 fw-bold tracking-tight">Today's Special</h1>
     <button type="button" class="btn btn-primary"
         style=" 
             background: cornflowerblue;
@@ -44,10 +34,10 @@ try {
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="itemForm" action="items.php" method="POST" enctype="multipart/form-data">
+            <form id="itemForm" action="special.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="create">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Menu Item</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Today's Special</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -61,17 +51,7 @@ try {
                     </div>
                     <label for="imageUpload" class="py-2">Upload an image</label>
                     <input type="file" name="image" class="form-control">
-                    <div class="input-group mb-3 py-4">
-                        <select class="form-select" id="inputGroupSelect01" name="category_name">
-                            <option selected disabled>Select Category</option>
-                            <?php
-                            foreach ($categories as $category) {
-                                echo '<option value="' . htmlspecialchars($category['categoryName']) . '">' . htmlspecialchars($category['categoryName']) . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mt-3 mb-3">
                         <textarea class="form-control" aria-label="With textarea" name="item_description" placeholder=""></textarea>
                         <label for="floatingInput">Item Description</label>
                     </div>
@@ -139,99 +119,72 @@ try {
     </div>
 </div>
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="deleteForm" action="items.php" method="POST">
-                <input type="hidden" name="action" value="delete">
-                <input type="hidden" name="itemName" id="deleteItemName" value="">
-                <input type="hidden" name="itemId" id="deleteitemId" value="">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-truncate">
-                    Are you sure you want to delete <strong id="itemToDelete"></strong>?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancelButton" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!-- Items Card -->
-<div class="container my-5">
-    <div class="row">
-        <?php
-        try {
-            $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, categoryName, outOfStock, price FROM menuItems WHERE categoryName <> 'Today''s Special';");
+<?php
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
-                $itemName = htmlspecialchars($row['itemName']);
-                $itemDescription = htmlspecialchars($row['itemDescription']);
-                $imageSrc = "../../" . htmlspecialchars($imageUrl);
-                $categoryName = htmlspecialchars($row['categoryName']);
-                $outOfStock = htmlspecialchars($row['outOfStock']);
-                $itemId = htmlspecialchars($row['itemId']);
-                $itemPrice = htmlspecialchars($row['price']);
+try {
+    // Prepare and execute the SQL query
+    $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, price, imageUrl FROM menuItems WHERE categoryName = :category");
+    $stmt->execute(['category' => "Today's Special"]);
 
-                $outOfStockLabel = $outOfStock == 1 ? "<label class='card-title mb-0 ms-3 flex-shrink-0'><strong>Out Of Stock</strong></label>" : "";
+    // Fetch the results
+    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                echo <<<HTML
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem; height: 27rem;">
-                        <img src="$imageSrc" style="height: 18rem; object-fit: cover; object-position: center;" class="card-img-top" alt="$itemName">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="card-title text-truncate flex-grow-1">$itemName</h5>
-                                $outOfStockLabel
-                            </div>
-                            <p class="card-text text-truncate">$itemDescription</p>
-                            <div class="d-flex justify-content-between">
-                                <label for="price"><strong>Price: ₹ $itemPrice</strong></label>
-                                <div>
-                                    <a href="#" 
-                                        class="btn btn-primary edit-button" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#editModal"
-                                        data-id="{$row['itemId']}"
-                                        data-name="$itemName"
-                                        data-price="$itemPrice"
-                                        data-image="$imageSrc"
-                                        data-stock="{$row['outOfStock']}"
-                                        data-description="$itemDescription"
-                                        data-category="{$row['categoryName']}"
-                                    >
-                                    Edit
-                                    </a>
-                                    <button class="btn btn-danger delete-button" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#deleteModal" 
-                                        data-item-name="$itemName"
-                                        data-id="{$row['itemId']}"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    foreach ($items as $item) {
+?>
+        <div class="card m-3" style="max-width: 540px; height: 300px;"> <!-- Adjust height as needed -->
+            <div class="row g-0 h-100">
+                <div class="col-md-4" style="height: 100%;">
+                    <img src="<?php echo htmlspecialchars($item['imageUrl']); ?>" class="img-fluid rounded-start" alt="<?php echo htmlspecialchars($item['itemName']); ?>" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
-                HTML;
-            }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-        ?>
+                <div class="col-md-8 d-flex flex-column" style="padding: 1rem;">
+                    <h5 class="card-title" style="margin-bottom: 0.5rem;"><?php echo htmlspecialchars($item['itemName']); ?></h5>
+                    <p class="card-text">
+                        <?php echo htmlspecialchars($item['itemDescription']); ?>
+                    </p>
+                    <p class="card-text" style="margin-top: auto;"><small class="text-muted" style="font-weight: bold;">Price: ₹<?php echo htmlspecialchars($item['price']); ?></small></p>
+                    <a href="#" class="btn btn-primary edit-button"> Edit </a>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
 
-    </div>
-</div>
+
 
 <?php include('../includes/footer.php') ?>
 
-<script src="script.js"></script>
+<script>
+    // Handle Create
+    document.getElementById("itemForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch("special.php", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+
+                let modal = bootstrap.Modal.getInstance(document.querySelector("#staticBackdropLabel").closest(".modal"));
+                modal.hide();
+
+                document.getElementById("itemForm").reset();
+
+                window.location.reload();
+            })
+            .catch(error => console.error("Error:", error));
+    });
+
+    // Reset form after Cancel
+    document.getElementById("cancelButton").addEventListener("click", function() {
+        document.getElementById("itemForm").reset();
+    });
+</script>

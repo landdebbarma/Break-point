@@ -40,7 +40,7 @@ function setActive($page)
           <a class="nav-link <?php echo setActive('billboards'); ?>" href="/break-point/admin/billboards">Billboards</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php echo setActive('category'); ?>" href="/break-point/admin/category">Menu Category</a>
+          <a class="nav-link <?php echo setActive('special'); ?>" href="/break-point/admin/special">Today's Special</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?php echo setActive('items'); ?>" href="/break-point/admin/items">Menu Items</a>
