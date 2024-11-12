@@ -46,10 +46,10 @@
   <section class="container2">
     <div class="section-1-container">
       <div class="section-1-items">
-        <a href="starters/"><img src="../img/burger.png" /></a>
+        <a href="../starters/"><img src="../img/burger.png" /></a>
       </div>
       <div class="section-1-items">
-        <a href="items/"><img src="../img/701965.png" /></a>
+        <a href="../items/"><img src="../img/701965.png" /></a>
       </div>
       <div class="section-1-items">
         <a href="#"><img src="../img/17868004.png" /></a>

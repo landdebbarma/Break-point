@@ -49,7 +49,7 @@
                     <a href="../items"><img src="../img/701965.png"></a>
                 </div>
                 <div class="section-1-items">
-                    <a href="default.asp"><img src="../img/17868004.png"></a>
+                    <a href="../beverages/"><img src="../img/17868004.png"></a>
                 </div>
                 <div class="section-1-items">
                     <a href="default.asp"> <img src="../img/3081098.png"></a>
