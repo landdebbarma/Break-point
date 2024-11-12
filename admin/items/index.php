@@ -4,7 +4,7 @@ include('../includes/navbar.php');
 include_once '../../config/dbcon.php';
 
 try {
-    $query = "SELECT id, categoryName FROM menuCategory ORDER BY id ASC";
+    $query = "SELECT categoryName FROM menuCategory";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
 

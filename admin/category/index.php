@@ -27,7 +27,7 @@
     </button>
 </div>
 
-
+<!-- Create Category -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -41,8 +41,8 @@
                         <input type="text" class="form-control" name="category_name" placeholder="" required>
                         <label for="floatingInput">Category Name</label>
                     </div>
-                    <label for="imageUpload" class="py-2">Upload an image</label>
-                    <input type="file" name="image" class="form-control">
+                    <!-- <label for="imageUpload" class="py-2">Upload an image</label>
+                    <input type="file" name="image" class="form-control"> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="cancelButton" data-bs-dismiss="modal">Cancel</button>
@@ -53,27 +53,23 @@
     </div>
 </div>
 
+<!-- Display Categories -->
 <div class="container my-5">
     <div class="row">
         <?php
         include '../../config/dbcon.php';
 
         try {
-            $stmt = $pdo->query("SELECT categoryName, imageUrl FROM menucategory");
+            $stmt = $pdo->query("SELECT categoryName FROM menucategory");
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
+                // $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
                 $categoryName = htmlspecialchars($row['categoryName']);
-                $imageSrc = "../../" . htmlspecialchars($imageUrl);
+                // $imageSrc = "../../" . htmlspecialchars($imageUrl);
 
                 echo <<<HTML
                 <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem; height: 22rem;">
-                        <img src="$imageSrc" style="height: 18rem; object-fit: cover; object-position: center;" class="card-img-top" alt="$categoryName">
-                        <div class="card-body">
-                            <h5 class="card-title">$categoryName</h5>
-                        </div>
-                    </div>
+                    <h5 class="card-title">$categoryName</h5>
                 </div>
                 HTML;
             }
@@ -107,6 +103,7 @@
                 document.getElementById("categoryForm").reset();
             })
             .catch(error => console.error("Error:", error));
+            window.location.reload();
     });
 
     document.getElementById("cancelButton").addEventListener("click", function() {
