@@ -95,9 +95,10 @@ nav .logo img {
   justify-content: space-between;
   gap: 30px;
 }
-#about .left {
+.container4.left {
   flex: 2;
-  font-size: 30px;
+  font-size: 300px;
+  background-color: bisque;
 }
 #about .right {
   flex: 2;
@@ -108,25 +109,8 @@ span {
 
 /*todays special offer baner */
 
-#add-offer h2 {
-  margin-top: 78px;
-  text-align: center;
-}
-
-.todays-special img {
-  width: 150px;
-  border-radius: 50%;
-}
-
-.todays-special {
-  margin-top: 15px;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  gap: 100px;
-  justify-content: center;
-  flex-wrap: nowrap;
-  background-color: bisque;
+#add-offer .container5{
+  background: bisque;
   box-shadow: 0 3px 50px -7px rgba(0, 0, 0, 0.3);
 }
 
@@ -338,7 +322,12 @@ span {
     flex-direction: column;
     gap: 20px;
     margin: 100px 0 100px 0;
+    font-size: 18px;
   }
+  .container4.left{
+    font-size: 100px;
+  }
+
 
   .container5 .todays-special {
     gap: 9px;
