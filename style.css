@@ -119,14 +119,8 @@ span {
   border-radius: 50%;
 }
 
-.todays-special {
-  margin-top: 15px;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  gap: 100px;
-  justify-content: center;
-  flex-wrap: nowrap;
+#add-offer {
+  margin-bottom: 10px;
   background-color: bisque;
   box-shadow: 0 3px 50px -7px rgba(0, 0, 0, 0.3);
 }
@@ -328,7 +322,7 @@ span {
 
   .container3 {
     margin-top: -93px;
-    margin-bottom: auto;
+    margin-bottom: -40px;
   }
 
   .container5 h2 {
