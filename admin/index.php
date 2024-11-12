@@ -13,7 +13,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 // fetch categories
 try {
-    $query = "SELECT id, categoryName FROM menuCategory ORDER BY id ASC";
+    $query = "SELECT categoryName FROM menuCategory";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
 
