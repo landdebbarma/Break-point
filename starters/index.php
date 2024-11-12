@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, intial-scale=1.0">
     <title>BREAK POINT</title>
+
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong" />
@@ -21,7 +22,7 @@
 
     $menuItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
-
+    
 </head>
 
 <!--navbar top-->
@@ -32,7 +33,7 @@
             <div class="container1">
                 <div class="logo">
                     <a href="/break-point/">
-                        <img src="../img/break point.jpg">
+                        <img src="../img/break point.png">
                     </a>
                 </div>
                 <div class="text1">
@@ -84,52 +85,15 @@
     </div>
 
     <footer id="footer">
-        <div>
-            <h3 class="footer-title">support</h3>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                feedback</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                phone</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                email</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                dd</a>
+    <div>
+        <a href="../contacts/"class="footer-title">address</a>
         </div>
         <div>
-            <h3 class="footer-title">contacts</h3>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                Email</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                Instagram</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                whatsapp</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                phone</a>
+         <a href="../contacts/"class="footer-title">contacts</a>
         </div>
         <div>
-
-            <h3 class="footer-title">Developer</h3>
-            <a href="https://github.com/Alam-Monir" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                Monir</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                Instagram</a>
-            <a href="https://github.com/landdebbarma" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                Land</a>
-            <a href="" class="footer-items">
-                <i class="fa-solid fa-chevron-right"></i>
-                Instagram</a>
-        </div>
+        <a href="../contacts/"class="footer-title">Developer</a>
+        </div>   
 
 
     </footer>
