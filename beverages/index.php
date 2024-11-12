@@ -1,28 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, intial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, intial-scale=1.0">
   <title>BREAK POINT</title>
+
   <link rel="stylesheet" href="/break-point/admin/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="../style.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../style.css">
+  <?php
+  include('../config/dbcon.php');
+
+  $sql = "SELECT itemName, price, imageUrl, outOfStock FROM menuItems WHERE categoryName = :category";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(['category' => 'Beverages']);
+
+  $menuItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  ?>
   <style>
-    /* sliding offer */
-    .section-2-container {
-      margin-top: 170px;
-      margin-bottom: 30px;
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      animation-name: slide;
-      animation-duration: 10s;
-      animation-iteration-count: infinite;
+    .out-of-stock {
+      filter: grayscale(100%);
+    }
+
+    .out-of-stock-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      z-index: 10;
+      white-space: nowrap;
+      max-width: 90%;
+      text-overflow: ellipsis;
     }
   </style>
 </head>
@@ -41,42 +62,77 @@
     </div>
   </nav>
 
-  <!--menu items-->
+  <!-- nav -->
+  <div class="main-content">
+    <section class="container2">
+      <div class="section-1-container">
+        <div class="section-1-items">
+          <a href="../starters/"><img src="../img/burger.png"></a>
+        </div>
+        <div class="section-1-items">
+          <a href="../items"><img src="../img/701965.png"></a>
+        </div>
+        <div class="section-1-items">
+          <a href="#"><img src="../img/17868004.png"></a>
+        </div>
+        <div class="section-1-items">
+          <a href="default.asp"> <img src="../img/3081098.png"></a>
+        </div>
 
-  <section class="container2">
-    <div class="section-1-container">
-      <div class="section-1-items">
-        <a href="../starters/"><img src="../img/burger.png" /></a>
       </div>
-      <div class="section-1-items">
-        <a href="../items/"><img src="../img/701965.png" /></a>
-      </div>
-      <div class="section-1-items">
-        <a href="#"><img src="../img/17868004.png" /></a>
-      </div>
-      <div class="section-1-items">
-        <a href="default.asp"> <img src="../img/3081098.png" /></a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!--terms & condition-->
 
-  <section id="footer">
+    <!--menu items-->
+    <!--product-->
+
+    <section id="container-1">
+      <?php foreach ($menuItems as $row): ?>
+        <?php
+        // Sanitize the image URL
+        $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
+        $imageSrc = "../" . htmlspecialchars($imageUrl);
+        $isOutOfStock = $row['outOfStock'];
+        ?>
+        <div class="box">
+          <?php if ($isOutOfStock): ?>
+            <span class="out-of-stock-label">Out of Stock</span>
+          <?php endif; ?>
+          <a href="itemDetail.php?name=<?php echo urlencode($row['itemName']); ?>">
+            <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['itemName']); ?>"
+              class="<?php echo $isOutOfStock ? 'out-of-stock' : ''; ?>">
+          </a>
+          <div class="d-flex justify-content-evenly p-3">
+            <div class="text-truncate fw-bold" style="max-width: calc(100% - 50px);"><?php echo htmlspecialchars($row['itemName']) ?></div>
+            <div class="fw-bold mb-0 ms-3 flex-shrink-0"><?php echo ' ₹' .  htmlspecialchars($row['price']) ?></div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </section>
+  </div>
+
+  <footer id="footer">
     <div>
-      <a href="contacts/" class="footer-title">address</a>
+      <a href="../contacts/" class="footer-title">address</a>
     </div>
     <div>
-      <a href="contacts/" class="footer-title">contacts</a>
+      <a href="../contacts/" class="footer-title">contacts</a>
     </div>
     <div>
-      <a href="contacts/" class="footer-title">Developer</a>
+      <a href="../contacts/" class="footer-title">Developer</a>
     </div>
-  </section>
+
+
+  </footer>
 
   <section id="copyright">
     <p>&copy Break point | All rights reserved</p>
   </section>
+
+
+
+
+
 </body>
 
 </html>
