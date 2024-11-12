@@ -22,6 +22,42 @@
 
     $menuItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
+    <!-- <style>
+        .container1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+            /* Adds spacing between logo and text */
+        }
+
+        .logo {
+            flex-shrink: 0;
+            /* Prevents the logo from resizing */
+        }
+
+        .logo img {
+            width: 90px;
+            border-radius: 50%;
+        }
+
+        .text1 {
+            text-align: center;
+            /* Ensures text is centered within this div */
+        }
+
+        .text1 h2 {
+            font-family: "Sofia", sans-serif;
+            font-weight: bold;
+            color: red;
+            margin: 0;
+            /* Remove any top margin */
+            line-height: 1.2;
+            /* Adjust line-height if necessary */
+        }
+    </style> -->
+
 </head>
 
 <!--navbar top-->
@@ -43,10 +79,10 @@
         <section class="container2">
             <div class="section-1-container">
                 <div class="section-1-items">
-                    <a href="#"><img src="../img/burger.png"></a>
+                    <a href="../starters/"><img src="../img/burger.png"></a>
                 </div>
                 <div class="section-1-items">
-                    <a href="../items"><img src="../img/701965.png"></a>
+                    <a href="#"><img src="../img/701965.png"></a>
                 </div>
                 <div class="section-1-items">
                     <a href="default.asp"><img src="../img/17868004.png"></a>
@@ -96,10 +132,6 @@
     <section id="copyright">
         <p>&copy Break point | All rights reserved</p>
     </section>
-
-
-
-
 
 </body>
 
