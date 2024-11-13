@@ -108,17 +108,23 @@ span {
 
 /*todays special offer baner */
 
-#add-offer h2 {
-  margin-top: 78px;
-  text-align: center;
+.text-center{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+.container h2{
+  padding: 13px;
 }
 
-.todays-special img {
-  width: 150px;
-  border-radius: 50%;
+.card-text{
+  background-color: bisque;
+  padding: 18px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
 }
 
 #add-offer {
+  margin-top: 65px;
   margin-bottom: 10px;
   background-color: bisque;
   box-shadow: 0 3px 50px -7px rgba(0, 0, 0, 0.3);
@@ -336,6 +342,11 @@ span {
   }
   .container4.left{
     font-size: 100px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .container4 .right{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
 
 
