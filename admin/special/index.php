@@ -16,7 +16,7 @@ include_once '../../config/dbcon.php';
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
         padding: 20px;">
     <h1 class="fs-1 fw-bold tracking-tight">Today's Special</h1>
-    <button type="button" class="btn btn-primary"
+    <!-- <button type="button" class="btn btn-primary"
         style=" 
             background: cornflowerblue;
             padding: 10px 15px;
@@ -27,7 +27,7 @@ include_once '../../config/dbcon.php';
             text-decoration: none;
             margin: 10px 10px 10px auto;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Create New
-    </button>
+    </button> -->
 </div>
 
 <!-- Create Modal -->
