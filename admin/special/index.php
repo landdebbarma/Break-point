@@ -110,7 +110,7 @@ include_once '../../config/dbcon.php';
     try {
 
         $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, price, imageUrl FROM menuItems WHERE categoryName = :category");
-        $stmt->execute(['category' => "Today's Special"]);
+        $stmt->execute(['category' => "Special"]);
 
         while ($items = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $items['imageUrl']);
@@ -207,8 +207,6 @@ include_once '../../config/dbcon.php';
                 itemPrice: button.getAttribute("data-price"),
                 itemDescription: button.getAttribute("data-description"),
                 imageUrl: button.getAttribute("data-image"),
-                // category: button.getAttribute("data-category"),
-                // outOfStock: button.getAttribute("data-stock") === "1"
             };
             console.log(initialData);
 
@@ -216,8 +214,6 @@ include_once '../../config/dbcon.php';
             editModal.querySelector('input[name="item_Price"]').value = initialData.itemPrice;
             editModal.querySelector('textarea[name="item_description"]').value = initialData.itemDescription;
             editModal.querySelector(".modal-body img").src = initialData.imageUrl;
-            // editModal.querySelector('select[name="category_name"]').value = initialData.category;
-            // editModal.querySelector("#flexSwitchCheckDefault").checked = initialData.outOfStock;
             editModal.querySelector(".modal-title").textContent = `Edit Menu Item: ${initialData.itemName}`;
             editModal.querySelector('input[name="itemId"]').value = initialData.itemId;
         });

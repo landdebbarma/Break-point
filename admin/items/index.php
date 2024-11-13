@@ -4,7 +4,7 @@ include('../includes/navbar.php');
 include_once '../../config/dbcon.php';
 
 try {
-    $query = "SELECT categoryName FROM menuCategory";
+    $query = "SELECT categoryName FROM menuCategory WHERE categoryName NOT IN ('Special')";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
 

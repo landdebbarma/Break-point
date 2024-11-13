@@ -17,23 +17,30 @@
     <?php
     include('../config/dbcon.php');
 
-    $sql = "SELECT itemName, price, imageUrl, outOfStock FROM menuItems WHERE categoryName = :category";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['category' => 'Starters']);
+    $categoryFilter = "WHERE categoryName NOT IN ('Starters', 'Beverages', 'Biryani', 'Special', 'Extras')";
+
+    if (isset($_GET['category']) && $_GET['category'] !== 'All') {
+        $categoryFilter = "WHERE categoryName = :category";
+    }
+
+    $query = "SELECT itemName, price, imageUrl, outOfStock FROM menuItems $categoryFilter";
+    $stmt = $pdo->prepare($query);
+
+    if (isset($_GET['category']) && $_GET['category'] !== 'All') {
+        $stmt->bindParam(':category', $_GET['category']);
+    }
+
+    $stmt->execute();
 
     $menuItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <style>
-        .accordion {
+        .filter {
             margin-top: 70px;
         }
 
         #container-1 {
             margin-top: 160px;
-        }
-
-        .accordion-body {
-            padding: 0;
         }
 
         .out-of-stock {
@@ -56,6 +63,14 @@
             white-space: nowrap;
             max-width: 90%;
             text-overflow: ellipsis;
+        }
+
+        @media (max-width: 576px) {
+            .category-button {
+                margin-right: 4px;
+                margin-left: 1px;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -97,67 +112,42 @@
 
         <!--menu items-->
         <!--product-->
-
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Accordion Item #1
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <section id="container-1">
-                            <?php foreach ($menuItems as $row): ?>
-                                <?php
-                                $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
-                                $imageSrc = "../" . htmlspecialchars($imageUrl);
-                                $isOutOfStock = $row['outOfStock'];
-                                ?>
-                                <div class="box">
-                                    <?php if ($isOutOfStock): ?>
-                                        <span class="out-of-stock-label">Out of Stock</span>
-                                    <?php endif; ?>
-                                    <a href="itemDetail.php?name=<?php echo urlencode($row['itemName']); ?>">
-                                        <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['itemName']); ?>"
-                                            class="<?php echo $isOutOfStock ? 'out-of-stock' : ''; ?>">
-                                    </a>
-                                    <div class="d-flex justify-content-evenly p-3">
-                                        <div class="text-truncate fw-bold" style="max-width: calc(100% - 50px);"><?php echo htmlspecialchars($row['itemName']) ?></div>
-                                        <div class="fw-bold mb-0 ms-3 flex-shrink-0"><?php echo ' ₹' .  htmlspecialchars($row['price']) ?></div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </section>
-
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Accordion Item #2
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Accordion Item #3
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                </div>
-            </div>
+        <div class="filter">
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="All">All</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Chowmein">Chowmein</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Momo">Momo</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Roll">Roll</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Bharta">Bharta</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Fried Rice">Fried Rice</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Indian Gravy">Indian Gravy</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Chinese Gravy">Chinese Gravy</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Tadka">Tadka</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Roti">Roti</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Extras">Extras</button>
         </div>
+
+        <section id="container-1">
+            <?php foreach ($menuItems as $row): ?>
+                <?php
+                $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
+                $imageSrc = "../" . htmlspecialchars($imageUrl);
+                $isOutOfStock = $row['outOfStock'];
+                ?>
+                <div class="box">
+                    <?php if ($isOutOfStock): ?>
+                        <span class="out-of-stock-label">Out of Stock</span>
+                    <?php endif; ?>
+                    <a href="itemDetail.php?name=<?php echo urlencode($row['itemName']); ?>">
+                        <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['itemName']); ?>"
+                            class="<?php echo $isOutOfStock ? 'out-of-stock' : ''; ?>">
+                    </a>
+                    <div class="d-flex justify-content-evenly p-3">
+                        <div class="text-truncate fw-bold" style="max-width: calc(100% - 50px);"><?php echo htmlspecialchars($row['itemName']) ?></div>
+                        <div class="fw-bold mb-0 ms-3 flex-shrink-0"><?php echo ' ₹' .  htmlspecialchars($row['price']) ?></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </section>
 
     </div>
 
@@ -182,5 +172,35 @@
 </body>
 
 </html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentCategory = urlParams.get('category') || 'All';
+
+    const categoryButtons = document.querySelectorAll('.category-button');
+
+    function updateActiveClass() {
+        categoryButtons.forEach(button => {
+            if (button.getAttribute('data-category') === currentCategory) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    updateActiveClass();
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.getAttribute('data-category');
+
+            window.location.href = `index.php?category=${category}`;
+
+            currentCategory = category;
+            updateActiveClass();
+        });
+    });
+</script>
 <script src="/break-point/admin/assets/js/jquery-3.7.1.min.js"></script>
 <script src="/break-point/admin/assets/js/bootstrap.bundle.min.js"></script>

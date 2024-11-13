@@ -20,7 +20,7 @@ try {
     } elseif (isset($_GET['request']) && $_GET['request'] === 'todays_special') {
         // Fetch menu item for today's special
         $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, price, imageUrl FROM menuItems WHERE categoryName = :category LIMIT 1");
-        $stmt->execute(['category' => "Today's Special"]);
+        $stmt->execute(['category' => "Special"]);
         
         $item = $stmt->fetch(PDO::FETCH_ASSOC);
         

@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
         if (isset($_SESSION['uuid'])) {
             $item_name = $_POST["item_name"];
             $item_price = $_POST["item_price"];
-            $category_name = "Today's Special";
+            $category_name = "Special";
             $item_description = $_POST["item_description"];
             $user_uuid = $_SESSION['uuid'];
             $itemId = bin2hex(random_bytes(16));
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
             "itemName" => $_POST["item_name"],
             "price" => $_POST["item_Price"],
             "itemDescription" => $_POST["item_description"],
-            "categoryName" => "Today's Special",
+            "categoryName" => "Special",
             "outOfStock" => "0"
         ];
 
