@@ -320,8 +320,11 @@ span {
   }
 
   .section-1-items img {
+    
     height: 40px;
     width: 40px;
+    aspect-ratio: 4/3;
+    object-fit: contain;
     margin: 17px 0 -15px 0;
   }
 
