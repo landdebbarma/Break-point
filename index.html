@@ -98,7 +98,9 @@
                   lead-in to additional content. This content is a little bit
                   longer.
                 </p>
-                <p class="mt-auto card-price"><strong>Price:</strong> ₹100</p>
+                <div class="mt-auto">
+                  <p class="card-price"><strong>Price:</strong> ₹ <span id="price" style="color: black;"></span></p>
+                </div>
               </div>
             </div>
           </div>
@@ -189,9 +191,7 @@
             item.itemName;
           document.querySelector("#add-offer .card-text").textContent =
             item.itemDescription;
-          document.querySelector(
-            "#add-offer .card-price"
-          ).innerHTML = `<p><strong>Price:</strong> ₹${item.price}</p>`;
+          document.querySelector('#price').textContent = item.price;
         } else {
           console.warn("No 'Today's Special' item found.");
         }
