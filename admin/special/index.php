@@ -69,7 +69,7 @@ include_once '../../config/dbcon.php';
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="editForm" action="items.php" method="POST" enctype="multipart/form-data">
+            <form id="editForm" action="special.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="itemId" id="itemId" value="">
                 <input type="hidden" name="current_image" value="">
@@ -90,24 +90,9 @@ include_once '../../config/dbcon.php';
                     <label for="imageUpload" class="py-2">Upload new image</label>
                     <input type="file" name="image" class="form-control">
 
-                    <div class="input-group mb-3 py-4">
-                        <select class="form-select" id="inputGroupSelect01" name="category_name">
-                            <option disabled>Select Category</option>
-                            <?php
-                            foreach ($categories as $category) {
-                                $isSelected = $category['categoryName'] === $selectedCategory ? 'selected' : '';
-                                echo '<option value="' . htmlspecialchars($category['categoryName']) . '" ' . $isSelected . '>' . htmlspecialchars($category['categoryName']) . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-3 mt-3">
                         <textarea class="form-control" aria-label="With textarea" name="item_description" placeholder=""></textarea>
                         <label for="floatingInput">Item Description</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="outOfStock">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Out of Stock</label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -122,36 +107,54 @@ include_once '../../config/dbcon.php';
 <!-- Items Card -->
 <?php
 
-try {
-    // Prepare and execute the SQL query
-    $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, price, imageUrl FROM menuItems WHERE categoryName = :category");
-    $stmt->execute(['category' => "Today's Special"]);
+    try {
 
-    // Fetch the results
-    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, price, imageUrl FROM menuItems WHERE categoryName = :category");
+        $stmt->execute(['category' => "Today's Special"]);
 
-    foreach ($items as $item) {
-?>
-        <div class="card m-3" style="max-width: 540px; height: 300px;"> <!-- Adjust height as needed -->
-            <div class="row g-0 h-100">
-                <div class="col-md-4" style="height: 100%;">
-                    <img src="<?php echo htmlspecialchars($item['imageUrl']); ?>" class="img-fluid rounded-start" alt="<?php echo htmlspecialchars($item['itemName']); ?>" style="height: 100%; width: 100%; object-fit: cover;">
+        while ($items = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $items['imageUrl']);
+            $itemName = htmlspecialchars($items['itemName']);
+            $itemDescription = htmlspecialchars($items['itemDescription']);
+            $imageSrc = "../../" . htmlspecialchars($imageUrl);
+            $itemId = htmlspecialchars($items['itemId']);
+            $itemPrice = htmlspecialchars($items['price']);
+
+
+            echo <<<HTML
+                <div class="card m-3" style="max-width: 540px; height: 300px;">
+                    <div class="row g-0 h-100">
+                        <div class="col-md-4" style="height: 100%;">
+                            <img src="$imageSrc" class="img-fluid rounded-start" alt="" style="height: 100%; width: 100%; object-fit: cover;">
+                        </div>
+                        <div class="col-md-8 d-flex flex-column" style="padding: 1rem;">
+                            <h5 class="card-title" style="margin-bottom: 0.5rem;">$itemName</h5>
+                            <p class="card-text">
+                                $itemDescription
+                            </p>
+                            <div class="d-flex justify-content-between mt-auto">
+                                <p class="card-text"><small class="text-muted" style="font-weight: bold;">Price: ₹ $itemPrice</small></p>
+                                <a href="#" 
+                                            class="btn btn-primary edit-button" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#editModal"
+                                            data-id="{$items['itemId']}"
+                                            data-name="$itemName"
+                                            data-price="$itemPrice"
+                                            data-image="$imageSrc"
+                                            data-description="$itemDescription"
+                                        >
+                                        Edit
+                                        </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-8 d-flex flex-column" style="padding: 1rem;">
-                    <h5 class="card-title" style="margin-bottom: 0.5rem;"><?php echo htmlspecialchars($item['itemName']); ?></h5>
-                    <p class="card-text">
-                        <?php echo htmlspecialchars($item['itemDescription']); ?>
-                    </p>
-                    <p class="card-text" style="margin-top: auto;"><small class="text-muted" style="font-weight: bold;">Price: ₹<?php echo htmlspecialchars($item['price']); ?></small></p>
-                    <a href="#" class="btn btn-primary edit-button"> Edit </a>
-                </div>
-            </div>
-        </div>
-<?php
+                HTML;
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
 ?>
 
 
@@ -186,5 +189,102 @@ try {
     // Reset form after Cancel
     document.getElementById("cancelButton").addEventListener("click", function() {
         document.getElementById("itemForm").reset();
+    });
+
+    // Handle update
+    document.addEventListener("DOMContentLoaded", function() {
+        const editModal = document.getElementById("editModal");
+        let initialData = {};
+
+        editModal.addEventListener("show.bs.modal", function(event) {
+            const button = event.relatedTarget;
+            const itemId = button.getAttribute("data-id");
+
+
+            initialData = {
+                itemId,
+                itemName: button.getAttribute("data-name"),
+                itemPrice: button.getAttribute("data-price"),
+                itemDescription: button.getAttribute("data-description"),
+                imageUrl: button.getAttribute("data-image"),
+                // category: button.getAttribute("data-category"),
+                // outOfStock: button.getAttribute("data-stock") === "1"
+            };
+            console.log(initialData);
+
+            editModal.querySelector('input[name="item_name"]').value = initialData.itemName;
+            editModal.querySelector('input[name="item_Price"]').value = initialData.itemPrice;
+            editModal.querySelector('textarea[name="item_description"]').value = initialData.itemDescription;
+            editModal.querySelector(".modal-body img").src = initialData.imageUrl;
+            // editModal.querySelector('select[name="category_name"]').value = initialData.category;
+            // editModal.querySelector("#flexSwitchCheckDefault").checked = initialData.outOfStock;
+            editModal.querySelector(".modal-title").textContent = `Edit Menu Item: ${initialData.itemName}`;
+            editModal.querySelector('input[name="itemId"]').value = initialData.itemId;
+        });
+
+        document.getElementById("editForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+
+            const fields = [{
+                    name: 'item_name',
+                    value: editModal.querySelector('input[name="item_name"]').value
+                },
+                {
+                    name: 'item_Price',
+                    value: editModal.querySelector('input[name="item_Price"]').value
+                },
+                {
+                    name: 'item_description',
+                    value: editModal.querySelector('textarea[name="item_description"]').value
+                },
+                {
+                    name: 'image',
+                    value: editModal.querySelector('input[type="file"]').files[0]
+                }
+            ];
+
+            fields.forEach(field => {
+                if (field.value !== initialData[field.name]) {
+                    formData.append(field.name, field.value);
+                }
+            });
+
+            formData.append("itemId", initialData.itemId);
+            formData.append("action", "update");
+
+            fetch("special.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    bootstrap.Modal.getInstance(editModal).hide();
+                    location.reload();
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    });
+    
+    // Turn off disabled Save button if any changes are made
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("editForm");
+        const saveButton = document.getElementById("saveButton");
+        const initialFormState = new FormData(form);
+
+        form.addEventListener("input", function() {
+            const currentFormState = new FormData(form);
+            let isChanged = false;
+
+            for (let [key, value] of currentFormState.entries()) {
+                if (value !== initialFormState.get(key)) {
+                    isChanged = true;
+                    break;
+                }
+            }
+
+            saveButton.disabled = !isChanged;
+        });
     });
 </script>

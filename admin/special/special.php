@@ -57,29 +57,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
             "itemName" => $_POST["item_name"],
             "price" => $_POST["item_Price"],
             "itemDescription" => $_POST["item_description"],
-            "categoryName" => $_POST["category_name"],
-            "outOfStock" => $_POST["outOfStock"]
+            "categoryName" => "Today's Special",
+            "outOfStock" => "0"
         ];
 
-        // Fetch existing data for comparison
         $query = $pdo->prepare("SELECT * FROM menuitems WHERE itemId = :itemId");
         if (!$query->execute([":itemId" => $itemId])) {
-            // Output error message if the execution fails
             echo "Query execution failed: " . implode(", ", $query->errorInfo());
-            exit; // Stop execution
+            exit;
         }
         $existingData = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($existingData === false) {
             echo "Error: Item not found or query failed.";
-            exit; // Stop execution if the item is not found
+            exit;
         }
 
-        // Track changed fields
         $updateFields = [];
         $params = [":itemId" => $itemId];
 
-        // Ensure that the keys you're accessing exist in the $existingData
         $validKeys = ['itemName', 'price', 'itemDescription', 'categoryName', 'outOfStock'];
         foreach ($validKeys as $key) {
             if (!array_key_exists($key, $existingData)) {
@@ -95,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
             }
         }
 
-        // Handle image upload if a new image is provided
         if (!empty($_FILES["image"]["name"])) {
             $uploadDir = "../../img/uploads/Items/";
             $imageName = basename($_FILES["image"]["name"]);
