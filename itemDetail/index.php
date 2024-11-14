@@ -42,9 +42,9 @@ try {
             justify-content: center;
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 5px;
+            padding: 30px;
             position: absolute;
-            top: 50%;
+            top: 36%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-weight: bold;
@@ -52,6 +52,7 @@ try {
             white-space: nowrap;
             max-width: 90%;
             text-overflow: ellipsis;
+            font-size:24px;
         }
 
         #item-name {
@@ -80,7 +81,7 @@ try {
 
         .right-1 {
             margin: 118px 0 50px 100px;
-            height: 754px;
+            height: 708px;
             width: 500px;
             background-color: #c3c0c0;
         }
@@ -93,8 +94,8 @@ try {
 
         @media (max-width: 700px) {
             .right-1 {
-                margin: 36px 0 0 0;
-                width: 434px;
+                margin: 36px 0 -8px -8px;
+                width: 437px;
             }
 
             .right-1 img {
