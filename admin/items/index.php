@@ -168,7 +168,7 @@ try {
     <div class="row">
         <?php
         try {
-            $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, categoryName, outOfStock, price FROM menuItems WHERE categoryName <> 'Today''s Special';");
+            $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, categoryName, outOfStock, price FROM menuItems WHERE categoryName <> 'Special';");
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
