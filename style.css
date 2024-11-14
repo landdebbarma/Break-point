@@ -39,7 +39,7 @@ nav {
 }
 
 .text1 h2 {
-  font-family: "Sofia", sans-serif;
+  font-family: "Arial, Helvetica, sans-serif";
   font-weight: bolder;
   color: red;
   margin-top: -60px; /* Remove default margin */
@@ -111,9 +111,6 @@ span {
 .text-center{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: bold;
-}
-.container h2{
-  padding: 13px;
 }
 
 .card-text{
