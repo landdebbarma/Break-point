@@ -1,18 +1,15 @@
 <?php
-require '../config/dbcon.php'; // Ensure your database connection is correctly included here
+require '../config/dbcon.php';
 
-// Get the item name from the URL
 $itemName = isset($_GET['itemName']) ? $_GET['itemName'] : '';
 
 try {
-    // Prepare and execute a query to fetch the item's details
-    $stmt = $pdo->prepare("SELECT itemName, price, itemDescription, imageUrl FROM menuItems WHERE itemName = :itemName LIMIT 1");
+    $stmt = $pdo->prepare("SELECT itemName, price, itemDescription, imageUrl, outOfStock FROM menuItems WHERE itemName = :itemName LIMIT 1");
     $stmt->bindParam(':itemName', $itemName, PDO::PARAM_STR);
     $stmt->execute();
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($item) {
-        // Sanitize data for safe output
         $itemName = htmlspecialchars($item['itemName']);
         $itemPrice = htmlspecialchars($item['price']);
         $itemDescription = htmlspecialchars($item['itemDescription']);
@@ -35,16 +32,26 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php echo $itemName; ?> - BREAK POINT</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .grayscale {
+            filter: grayscale(100%);
         }
 
-        body {
-            font-family: sans-serif;
-            font-size: medium;
-            background-color: #fff;
+        .out-of-stock-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            z-index: 10;
+            white-space: nowrap;
+            max-width: 90%;
+            text-overflow: ellipsis;
         }
 
         #item-name {
@@ -101,9 +108,13 @@ try {
 <body>
     <div class="item-container">
         <div class="right-1">
-            <img src="<?php echo $imageUrl; ?>" alt="<?php echo $itemName; ?>" />
+            <?php if ($item['outOfStock']): ?>
+                <span class="out-of-stock-label">Sold Out for Today</span>
+            <?php endif; ?>
+            <img src="<?php echo $imageUrl; ?>" alt="<?php echo $itemName; ?>" 
+             class="<?php echo $item['outOfStock'] ? 'grayscale' : ''; ?>" />
             <div id="item-name"><?php echo $itemName; ?></div>
-            <div id="item-price">₹<?php echo $itemPrice; ?></div>
+            <div id="item-price">₹ <?php echo $itemPrice; ?></div>
             <div id="item-description"><?php echo $itemDescription; ?></div>
         </div>
     </div>
