@@ -166,7 +166,7 @@
     </footer>
 
     <section id="copyright">
-        <p>&copy Break point | All rights reserved</p>
+        <p>&copy Break point | All rights reserved 2024<br>THIS WEB SITE IS ONLY FOR MOBILE VIEW</p>
     </section>
 
 </body>
