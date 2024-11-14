@@ -96,7 +96,7 @@
         ?>
         <div class="box">
           <?php if ($isOutOfStock): ?>
-            <span class="out-of-stock-label">Out of Stock</span>
+            <span class="out-of-stock-label">Sold Out for Today</span>
           <?php endif; ?>
           <a href="itemDetail.php?name=<?php echo urlencode($row['itemName']); ?>">
             <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['itemName']); ?>"
@@ -113,25 +113,19 @@
 
   <footer id="footer">
     <div>
-      <a href="../contacts/" class="footer-title">address</a>
+      <a href="../contacts/" class="footer-title">Address</a>
     </div>
     <div>
-      <a href="../contacts/" class="footer-title">contacts</a>
+      <a href="../contacts/" class="footer-title">Contacts</a>
     </div>
     <div>
       <a href="../contacts/" class="footer-title">Developer</a>
     </div>
-
-
   </footer>
 
   <section id="copyright">
     <p>&copy Break point | All rights reserved 2024<br>THIS WEB SITE IS ONLY FOR MOBILE VIEW</p>
   </section>
-
-
-
-
 
 </body>
 
