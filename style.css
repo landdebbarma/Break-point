@@ -370,7 +370,7 @@ span {
   #footer {
     gap: 58px;
     width: 100%;
-    bottom: 0;
+    margin-top: -138px;
   }
 
   #footer .footer-title {
