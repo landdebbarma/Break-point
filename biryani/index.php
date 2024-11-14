@@ -58,7 +58,7 @@
       </a>
     </div>
     <div class="text1">
-      <h2>FELL THE TASTE<br>Relish Delights</h2>
+      <h2>FEEL THE TASTE<br>Relish Delights</h2>
     </div>
   </nav>
 
