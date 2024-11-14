@@ -278,7 +278,7 @@ span {
   gap: 24px;
   justify-content: center;
   flex-wrap: nowrap;
-  margin: 10px;
+  margin: -5px;
 }
 
 /*footer*/
