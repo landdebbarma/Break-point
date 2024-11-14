@@ -84,7 +84,7 @@
 
     <section class="name">
       <div class="menu-name" style="margin: 85px 0 -95px 36px;">
-        <h5>Biryani</h5>
+      <h5 style="font-weight: bold; font-size:20px;" >Biryani</h5>
       </div>
     </section>
 

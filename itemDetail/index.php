@@ -60,7 +60,7 @@ try {
             padding-top: 20px;
             color: rgb(8, 9, 9);
             font-weight: bold;
-            font-size: 23px;
+            font-size: 20px;
         }
 
         #item-price {
