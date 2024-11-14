@@ -94,13 +94,15 @@ try {
 
         @media (max-width: 700px) {
             .right-1 {
-                margin: 36px 0 -8px -8px;
-                width: 437px;
+                margin: -30px 0 -50px -8px;
+                width: 100%;
+                padding-right:14px;
             }
 
             .right-1 img {
-                width: 434px;
-                height: 500px;
+                width: 104%;
+                height: 470px;
+                padding-right:14px;
             }
         }
     </style>
