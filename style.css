@@ -88,7 +88,7 @@ nav .logo img {
 
 #about .container4 {
   margin-top: -60px;
-  margin-bottom: 200px;
+  margin-bottom: 40px;
   padding: 0 50px;
   align-items: center;
   justify-content: space-between;
@@ -249,6 +249,37 @@ span {
   border-radius: 0 0 60px 60px;
 }
 
+
+/*happy customer*/
+
+#happy-customer{
+  margin: 48px 13px 200px 13px;
+  
+}
+#happy-customer h2{
+  font-size: 30px;
+  font-weight: bold;
+}
+#happy-customer h2{
+  text-align: center;
+}
+
+.customer img{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  
+}
+
+.customer{
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin: 10px;
+}
+
 /*footer*/
 
 #footer {
@@ -287,8 +318,8 @@ span {
 /*scroll animation*/
 @keyframes appear {
   from{
-      opacity: 0.0;
-      scale: 0.0;
+      opacity: 0.6;
+      scale: 0.6;
   }
   to{
       opacity: 1;
