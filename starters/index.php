@@ -67,16 +67,16 @@
     <section class="container2">
       <div class="section-1-container">
         <div class="section-1-items">
-          <a href="#"><img src="../img/burger.png"></a>
+          <a href="#"><img src="../img/www.png"></a>
         </div>
         <div class="section-1-items">
-          <a href="../items"><img src="../img/701965.png"></a>
+          <a href="../items"><img src="../img/llllll-removebg-preview.png"></a>
         </div>
         <div class="section-1-items">
-          <a href="../biryani/"> <img src="../img/3081098.png"></a>
+          <a href="../biryani/"> <img src="../img/jjjj-removebg-preview.png"></a>
         </div>
         <div class="section-1-items">
-          <a href="../beverages/"><img src="../img/17868004.png"></a>
+          <a href="../beverages/"><img src="../img/mmmm-removebg-preview.png"></a>
         </div>
 
       </div>
