@@ -137,7 +137,7 @@
                     <?php if ($isOutOfStock): ?>
                         <span class="out-of-stock-label">Sold Out for Today</span>
                     <?php endif; ?>
-                    <a href="itemDetail.php?name=<?php echo urlencode($row['itemName']); ?>">
+                    <a href="../itemDetail/?itemName=<?php echo urlencode($row['itemName']); ?>">
                         <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['itemName']); ?>"
                             class="<?php echo $isOutOfStock ? 'out-of-stock' : ''; ?>">
                     </a>
