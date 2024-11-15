@@ -30,8 +30,18 @@ try {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <title><?php echo $itemName; ?> - BREAK POINT</title>
     <style>
+        body {
+            font-family: 'Trirong', sans-serif;
+        }
+
         .grayscale {
             filter: grayscale(100%);
         }
@@ -52,19 +62,23 @@ try {
             white-space: nowrap;
             max-width: 90%;
             text-overflow: ellipsis;
-            font-size:24px;
+            font-size: 24px;
         }
 
         #item-name {
-            padding-left: 68px;
+            display: flex;
+            justify-content: space-around;
+            /* padding-left: 68px; */
             padding-top: 20px;
             color: rgb(8, 9, 9);
-            font-weight: bold;
-            font-size: 20px;
+            font-weight: bolder;
+            font-size: 24px;
         }
 
         #item-price {
-            padding-left: 68px;
+            display: flex;
+            justify-content: space-around;
+            /* padding-left: 68px; */
             padding-top: 20px;
             color: rgb(8, 9, 9);
             font-weight: bold;
@@ -72,7 +86,9 @@ try {
         }
 
         #item-description {
-            padding-left: 68px;
+            display: flex;
+            justify-content: space-around;
+            /* padding-left: 68px; */
             padding-top: 20px;
             color: rgb(8, 9, 9);
             font-weight: bold;
@@ -81,7 +97,7 @@ try {
 
         .right-1 {
             margin: 118px 0 50px 100px;
-            height: 708px;
+            height: 750px;
             width: 500px;
             background-color: #c3c0c0;
         }
@@ -90,6 +106,10 @@ try {
             height: 450px;
             width: 500px;
             border-radius: 0 0 60px 60px;
+        }
+
+        hr.solid {
+            border-top: 3px solid #bbb;
         }
 
         @media (max-width: 700px) {
@@ -114,10 +134,15 @@ try {
             <?php if ($item['outOfStock']): ?>
                 <span class="out-of-stock-label">Sold Out for Today</span>
             <?php endif; ?>
-            <img src="<?php echo $imageUrl; ?>" alt="<?php echo $itemName; ?>" 
-             class="<?php echo $item['outOfStock'] ? 'grayscale' : ''; ?>" />
+            <img src="<?php echo $imageUrl; ?>" alt="<?php echo $itemName; ?>"
+                class="<?php echo $item['outOfStock'] ? 'grayscale' : ''; ?>" />
             <div id="item-name"><?php echo $itemName; ?></div>
-            <div id="item-price">₹ <?php echo $itemPrice; ?></div>
+            <hr class="solid">
+            <div id="item-price">
+                <div>Price:</div>
+                <div>₹ <?php echo $itemPrice; ?></div>
+            </div>
+            <hr class="solid">
             <div id="item-description"><?php echo $itemDescription; ?></div>
         </div>
     </div>

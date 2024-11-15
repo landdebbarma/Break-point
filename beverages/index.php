@@ -84,7 +84,7 @@
 
     <section class="name">
       <div class="menu-name" style="margin: 85px 0 -95px 36px;">
-      <h5 style="font-weight: bold; font-size:20px;" >Drink</h5>
+      <h5 style="font-weight: bold; font-size:20px;" >Drinks</h5>
       </div>
     </section>
 
