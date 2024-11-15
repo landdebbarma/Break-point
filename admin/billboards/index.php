@@ -93,23 +93,28 @@ include_once '../../config/dbcon.php';
                 // $billboardId = htmlspecialchars($row['billboardId']);
 
                 echo <<<HTML
-                <div class="col-md-6 mb-4">
-                    <div class="card" style="width: 35rem; height: 22rem;">
-                        <img src="$imageSrc" style="height: 18rem; object-fit: cover; object-position: center;" class="card-img-top" alt="$billboardName">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="card-title text-truncate flex-grow-1">$billboardName</h5>
-                                <button class="btn btn-danger delete-button mb-0 ms-3 flex-shrink-0" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#deleteModal" 
-                                    data-billboard-name="$billboardName"
-                                >
-                                    Delete
-                                </button>
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="card mx-auto" style="width: 100%; max-width: 35rem; aspect-ratio: 35 / 22;">
+                            <div class="card-img-container" style="height: 80%; overflow: hidden;">
+                                <img src="$imageSrc" 
+                                    class="card-img-top" 
+                                    alt="$billboardName" 
+                                    style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="card-title text-truncate flex-grow-1">$billboardName</h5>
+                                    <button class="btn btn-danger delete-button mb-0 ms-3 flex-shrink-0" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModalBillboard" 
+                                        data-billboard-name="$billboardName"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 HTML;
             }
         } catch (PDOException $e) {
@@ -166,7 +171,7 @@ include_once '../../config/dbcon.php';
             });
         });
     });
-    
+
     // Handle delete
     document.getElementById("deleteForm").addEventListener("submit", function(event) {
         event.preventDefault();
