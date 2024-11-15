@@ -20,7 +20,6 @@ function setActive($page)
   return ($current_page == $page || ($page == 'admin' && $current_page == '')) ? 'active' : '';
 }
 ?>
-<link href="/break-point/admin/assets/css/bootstrap.min.css" rel="stylesheet">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top" data-bs-theme="dark">
   <div class="container">
@@ -64,5 +63,3 @@ function setActive($page)
     }
   }
 </script>
-<script src="/break-point/admin/assets/js/jquery-3.7.1.min.js"></script>
-<script src="/break-point/admin/assets/js/bootstrap.bundle.min.js"></script>

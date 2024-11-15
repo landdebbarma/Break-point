@@ -32,27 +32,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
     if ($searchTerm !== '') {
         $searchTerm = "%$searchTerm%";
 
-        $stmt = $pdo->prepare("SELECT , billboardName, imageUrl FROM billboards WHERE billboardName LIKE :searchTerm");
+        $stmt = $pdo->prepare("SELECT billboardName, imageUrl FROM billboards WHERE billboardName LIKE :searchTerm");
         $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
         $stmt->execute();
         $billboardResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems WHERE itemName LIKE :searchTerm");
+        $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems WHERE itemName LIKE :searchTerm AND categoryName != 'Special'");
         $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
         $stmt->execute();
         $itemResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } else {
-        $stmt = $pdo->query("SELECT , billboardName, imageUrl FROM billboards");
+        $stmt = $pdo->query("SELECT billboardName, imageUrl FROM billboards");
         $billboardResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems");
+        $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems WHERE categoryName != 'Special'");
         $itemResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } else {
     $stmt = $pdo->query("SELECT billboardName, imageUrl FROM billboards");
     $billboardResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems");
+    $stmt = $pdo->query("SELECT itemId, itemName, itemDescription, imageUrl, price, outOfStock FROM menuItems WHERE categoryName != 'Special'");
     $itemResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>

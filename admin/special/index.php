@@ -122,7 +122,7 @@ include_once '../../config/dbcon.php';
 
 
             echo <<<HTML
-                <div class="card m-3" style="max-width: 540px; height: 300px;">
+                <div class="card m-3" style="max-width: 540px; height: 360px;">
                     <div class="row g-0 h-100">
                         <div class="col-md-4" style="height: 100%;">
                             <img src="$imageSrc" class="img-fluid rounded-start" alt="" style="height: 100%; width: 100%; object-fit: cover;">
