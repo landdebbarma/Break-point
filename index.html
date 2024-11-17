@@ -40,15 +40,15 @@
   <body>
     <nav>
       <div class="container">
-      <div class="container1">
-        <a href="#" class="logo">
-          <img src="img/break point.png" alt="Logo" />
-        </a>
+        <div class="container1">
+          <a href="#" class="logo">
+            <img src="img/break point.png" alt="Logo" />
+          </a>
+        </div>
+        <div class="text1">
+          <h2>FEEL THE TASTE<br />Relish Delights</h2>
+        </div>
       </div>
-      <div class="text1">
-        <h2>FEEL THE TASTE<br />Relish Delights</h2>
-      </div>
-    </div>
     </nav>
 
     <!--menu items-->
@@ -89,19 +89,31 @@
               <img
                 src="img/coke.webp"
                 class="img-fluid rounded-start"
-                alt="..." style="margin: 40px 10px 10px 10px;"
+                alt="..."
+                style="margin: 40px 10px 10px 10px"
               />
             </div>
             <div class="col-8">
               <div class="card-body">
                 <h5 class="card-title">Coke</h5>
-                <p class="card-text" style=" width: 231px; height: 146px; margin: 0px 1px 7px -3px;border-radius: 30px 0 0 30px;">
+                <p
+                  class="card-text"
+                  style="
+                    width: 231px;
+                    height: 146px;
+                    margin: 0px 1px 7px -3px;
+                    border-radius: 30px 0 0 30px;
+                  "
+                >
                   This is a wider card with supporting text below as a natural
                   lead-in to additional content. This content is a little bit
                   longer.
                 </p>
                 <div class="mt-auto">
-                  <p class="card-price"><strong>Price:</strong> ₹ <span id="price" style="color: black;"></span></p>
+                  <p class="card-price">
+                    <strong>Price:</strong> ₹
+                    <span id="price" style="color: black"></span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -114,37 +126,32 @@
 
     <section id="about">
       <div class="container">
-      <div class="container4">
-        <div class="left">
-          <h4>Discover The <span>BREAK POINT Taste</span></h4>
-        </div>
+        <div class="container4">
+          <div class="left">
+            <h4>Discover The <span>BREAK POINT Taste</span></h4>
+          </div>
 
-        <div class="right">
-          <p>
-            <strong>Welcome</strong> To The Break Point<br />We Offer Good
-            Quality of Food And Beverages. Along with food you can enjoy calm
-            scenario and our restaurant build is enhanced wiith fatched root and
-            bamboo benches. A beauty mixed with culture.
-          </p>
+          <div class="right">
+            <p>
+              <strong>Welcome</strong> To The Break Point<br />We Offer Good
+              Quality of Food And Beverages. Along with food you can enjoy calm
+              scenario and our restaurant build is enhanced wiith fatched root
+              and bamboo benches. A beauty mixed with culture.
+            </p>
+          </div>
         </div>
-      </div>
       </div>
     </section>
-<!--happy customer-->
-    <section id="happy-customer">         
+    <!--happy customer-->
+    <section id="happy-customer">
       <div class="container">
-          <h2 style="height: 40px;">HAPPY CUSTOMERS</h2>
-          <div class="customer">
-              <img src="img/939dff2d-e0b3-434e-99af-d52ca0fdcb0f.jpg" alt="">
-              <img src="img/WhatsApp Image 2024-11-14 at 3.32.45 PM.jpeg" alt="">
-              <img src="img/bddda121-19db-4749-ac77-77862fee35d8.jpg" alt="">
-              <img src="img/788c3777279f4f85d207dae946e4dadc.jpg" alt="">
-          </div>
+        <h2 style="height: 40px">HAPPY CUSTOMERS</h2>
+        <div class="customer" id="customer-images"></div>
       </div>
-  </section>
+    </section>
 
     <!--terms & condition-->
-      
+
     <section id="footer">
       <div>
         <a href="contacts/" class="footer-title">Address</a>
@@ -207,7 +214,7 @@
             item.itemName;
           document.querySelector("#add-offer .card-text").textContent =
             item.itemDescription;
-          document.querySelector('#price').textContent = item.price;
+          document.querySelector("#price").textContent = item.price;
         } else {
           console.warn("No 'Today's Special' item found.");
         }
@@ -217,5 +224,34 @@
       );
   });
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch("logic.php?request=customers")
+      .then((response) => response.json())
+      .then((customers) => {
+        if (Array.isArray(customers) && customers.length > 0) {
+          const customerContainer = document.getElementById("customer-images");
+
+          if (customerContainer) {
+            customerContainer.innerHTML = '';
+
+            customers.forEach((customer) => {
+              const img = document.createElement("img");
+              img.id = customer.customerNumber;
+              img.src = customer.imageUrl;
+              img.alt = `Customer ${customer.customerNumber}`;
+              customerContainer.appendChild(img);
+            });
+          } else {
+            console.error("The customer-images container was not found in the DOM.");
+          }
+        } else {
+          console.warn("No customers found or imageUrl is null.");
+        }
+      })
+      .catch((error) => console.error("Error fetching customer images:", error));
+  });
+</script>
+
 <script src="/break-point/admin/assets/js/jquery-3.7.1.min.js"></script>
 <script src="/break-point/admin/assets/js/bootstrap.bundle.min.js"></script>

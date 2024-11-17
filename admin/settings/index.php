@@ -1,5 +1,59 @@
-<?php include('../includes/header.php') ?>
-<?php include('../includes/navbar.php') ?>
+<?php
+    include('../includes/header.php');
+    include('../includes/navbar.php');
+    require '../../config/dbcon.php';
+
+    try {
+        $query = "SELECT customerNumber FROM customers";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error fetching customerNumber: " . $e->getMessage();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'change-customerImage') {
+        $customerNumber = $_POST['customerNumber'];
+        
+        $allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/heic", "image/heif", "image/svg+xml", "image/webp"];
+        
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $fileType = mime_content_type($_FILES['image']['tmp_name']);
+            
+            if (in_array($fileType, $allowedTypes)) {
+                $uploadDir = '../../img/uploads/Customers/';
+                $fileName = basename($_FILES['image']['name']);
+                $uploadPath = $uploadDir . $fileName;
+                
+                try {
+                    $stmt = $pdo->prepare("SELECT imageUrl FROM Customers WHERE customerNumber = :customerNumber");
+                    $stmt->execute([':customerNumber' => $customerNumber]);
+                    $currentImage = $stmt->fetchColumn();
+
+                    if ($currentImage && file_exists($currentImage)) {
+                        unlink($currentImage);
+                    }
+
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+                        $stmt = $pdo->prepare("UPDATE Customers SET imageUrl = :imageUrl WHERE customerNumber = :customerNumber");
+                        $stmt->execute([':imageUrl' => $uploadPath, ':customerNumber' => $customerNumber]);
+                        
+                        echo "<script>alert('Image uploaded, old image removed, and URL updated successfully.');</script>";
+                    } else {
+                        echo "<script>alert('Error moving the uploaded file.');</script>";
+                    }
+                } catch (PDOException $e) {
+                    echo "<script>alert('Error: " . addslashes($e->getMessage()) . "');</script>";
+                }
+            } else {
+                echo "<script>alert('Invalid file type. Please upload a valid image.');</script>";
+            }
+        } else {
+            echo "<script>alert('No file uploaded or there was an error.');</script>";
+        }
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -158,6 +212,26 @@
                     <label for="floatingInput">Confirm New Email</label>
                 </div>
                 <button type="submit">Change Email</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h5>Change Happy Customers</h5>
+            <form id="change-customerImage-form" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="change-customerImage">
+                <select class="form-select" id="inputGroupSelect01" name="customerNumber">
+                    <option selected disabled>Select Customer Number</option>
+                    <?php
+                    foreach ($customers as $customer) {
+                        echo '<option value="' . htmlspecialchars($customer['customerNumber']) . '">' . htmlspecialchars($customer['customerNumber']) . '</option>';
+                    }
+                    ?>
+                </select>
+                <div class="mb-3">
+                    <label for="imageUpload" class="py-2">Upload an image</label>
+                    <input type="file" name="image" class="form-control">
+                </div>
+                <button type="submit">Save Changes</button>
             </form>
         </div>
     </div>

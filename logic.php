@@ -17,8 +17,10 @@ try {
         }
 
         echo json_encode($images);
-    } elseif (isset($_GET['request']) && $_GET['request'] === 'todays_special') {
-        // Fetch menu item for today's special
+    }
+    
+    // Fetch today's special menu item
+    elseif (isset($_GET['request']) && $_GET['request'] === 'todays_special') {
         $stmt = $pdo->prepare("SELECT itemId, itemName, itemDescription, price, imageUrl FROM menuItems WHERE categoryName = :category LIMIT 1");
         $stmt->execute(['category' => "Special"]);
         
@@ -38,12 +40,32 @@ try {
 
             echo json_encode([$data]);
         } else {
-            echo json_encode([]); 
+            echo json_encode([]);
         }
-    } else {
+    }
+
+    // Fetch customer images
+    elseif (isset($_GET['request']) && $_GET['request'] === 'customers') {
+        $stmt = $pdo->query("SELECT customerNumber, imageUrl FROM Customers WHERE imageUrl IS NOT NULL");
+        $customers = [];
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $imageUrl = preg_replace('/^\.\.\/\.\.\//', '', $row['imageUrl']);
+            $imageSrc ="". htmlspecialchars($imageUrl);
+            $customers[] = [
+                'customerNumber' => $row['customerNumber'],
+                'imageUrl' => $imageSrc
+            ];
+        }
+
+        echo json_encode($customers);
+    }
+
+    else {
         echo json_encode(['error' => 'Invalid request']);
     }
+
 } catch (PDOException $e) {
-    echo json_encode(['error' => 'Database error']);
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
 }
 ?>
