@@ -123,6 +123,7 @@
             <button class="btn btn-outline-success rounded-pill category-button" data-category="Chinese Gravy">Chinese Gravy</button>
             <button class="btn btn-outline-success rounded-pill category-button" data-category="Tadka">Tadka</button>
             <button class="btn btn-outline-success rounded-pill category-button" data-category="Roti">Roti</button>
+            <button class="btn btn-outline-success rounded-pill category-button" data-category="Tandoor">Tandoor</button>
             <button class="btn btn-outline-success rounded-pill category-button" data-category="Extras">Extras</button>
         </div>
 
