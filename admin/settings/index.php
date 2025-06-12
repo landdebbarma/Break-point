@@ -96,12 +96,6 @@
 
         }
 
-        h5 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: black;
-        }
-
         label {
             display: block;
             margin-bottom: 5px;
@@ -113,11 +107,10 @@
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
-            border-radius: 40px;
+            border-radius: 30px;
         }
 
         button {
-            background-color: cornflowerblue;
             color: white;
             border: none;
             border-radius: 40px;
