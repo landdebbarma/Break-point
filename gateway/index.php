@@ -71,7 +71,7 @@
     <!--pay button-->
     <div class="d-flex flex-row justify-content-center mt-5">
         <a class="bg-danger bg-gradient rounded-2 fw-bold d-flex align-items-center justify-content-center text-white text-decoration-none"
-            href="../index.html"
+            href="../paymentAnimation/"
             style="width: 100%; height: 50px; margin-top: 30px;">
             Pay Now
         </a>
