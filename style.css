@@ -345,8 +345,8 @@ span {
     height: 90px;
   }
   nav .logo img {
-    left: 10px;
-    margin-top: -10px;
+    left: 30px;
+    margin-top: -5px;
     position: absolute;
   }
 
@@ -354,7 +354,8 @@ span {
     
     font-size: 15px;
     position: relative;
-    padding-left: 80px;
+    padding-left: 100px;
+    margin-top: -68px;
     
   }
 

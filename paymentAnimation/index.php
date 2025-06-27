@@ -27,7 +27,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: #4BB543;
+            background:rgb(53,213,226);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -102,7 +102,7 @@
         </div>
         <div class="text1">Payment Successful</div>
         <div class="text2">Thank you for your purchase.</div>
-        <a href="../index.html" class="btn btn-success btn-home mt-3">Go to Home</a>
+        <a href="../index.html" class="btn btn-home mt-3 text-light" style="background:rgb(53,213,226);">Go to Home</a>
     </div>
 
 </body>
