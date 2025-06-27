@@ -98,13 +98,13 @@ try {
         .right-1 {
             margin: 118px 0 50px 100px;
             height: 750px;
-            width: 500px;
+            width: 100%;
             background-color: #c3c0c0;
         }
 
         .right-1 img {
             height: 450px;
-            width: 500px;
+            width: 100%;
             border-radius: 0 0 60px 60px;
         }
 
@@ -120,10 +120,35 @@ try {
             }
 
             .right-1 img {
-                width: 104%;
-                height: 470px;
-                padding-right:14px;
+                margin:15px 8px ;
+                width: 100%;
+                height: 440px;
+                
             }
+         .payment-button {
+  background-color:rgb(0, 0, 0);
+  color: white;
+  border: none;
+  padding: 12px 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align:center;
+  margin-left:20px;
+}
+.text{
+    font-weight:300;
+}
+
+.payment-button:hover {
+  background-color:rgb(96, 94, 94);
+  color:black;
+  
+}
+
+              
+         
         }
     </style>
 </head>
@@ -143,9 +168,18 @@ try {
                 <div>₹ <?php echo $itemPrice; ?></div>
             </div>
             <hr class="solid">
-            <div id="item-description"><?php echo $itemDescription; ?></div>
+          <!--  <div id="item-description"><?php echo $itemDescription; ?></div> -->
+
+          <div class="payment-button">
+                <a href="./" class="text">BUY NOW</a>
+           </div>
+
         </div>
     </div>
+
+     
+
+
 </body>
 
 </html>
