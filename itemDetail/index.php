@@ -41,6 +41,9 @@ try {
         body {
             font-family: 'Trirong', sans-serif;
         }
+        a{
+             text-decoration: none;
+        }
 
         .grayscale {
             filter: grayscale(100%);
@@ -127,20 +130,26 @@ try {
             }
 
             .payment-button {
-                background-color: rgb(0, 0, 0);
+                background-color: rgb(128, 54, 54);
                 color: white;
                 border: none;
-                padding: 12px 50px;
+                padding: 12px 0;
                 font-size: 16px;
                 border-radius: 10px;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
                 text-align: center;
                 margin-left: 20px;
+                 text-decoration: none;
             }
 
             .text {
                 font-weight: 300;
+                 text-decoration: none;
+            }
+            a{
+                text-decoration: none;
+                color:white;
             }
 
             .payment-button:hover {

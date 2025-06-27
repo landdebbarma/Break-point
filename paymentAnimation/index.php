@@ -101,7 +101,7 @@
             <i class="bi bi-check-lg checkmark"></i>
         </div>
         <div class="text1">Payment Successful</div>
-        <div class="text2">Thank you for your purchase.</div>
+        <div class="text2">Thank you So Much :)</div>
         <a href="../index.html" class="btn btn-home mt-3 text-light" style="background:rgb(53,213,226);">Go to Home</a>
     </div>
 
