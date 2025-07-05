@@ -12,13 +12,67 @@
 
 <body>
 
-    <div class="card d-flex flex-row mt-3 p-2 mx-2 justify-content-around align-items-center">
+    <div class="card d-flex flex-row mt-5 p-2 mx-2 justify-content-around align-items-center">
         <img width="30" height="30" src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/external-visa-an-american-multinational-financial-services-corporation-logo-shadow-tal-revivo.png" alt="external-visa-an-american-multinational-financial-services-corporation-logo-shadow-tal-revivo" />
-        <p class="m-1 fw-bold">***************8797</p>
-        <div class="card d-flex flex-row align-items-center p-2 bg-black text-white" style="border-radius: 10px; width: auto; height: auto;">
+        <p class="m-1 fw-bold">**********8797</p>
+
+
+        <div class="card d-flex flex-row align-items-center p-2 bg-black text-white" style="border-radius: 7px; width: auto; height: auto;">
 
             <div class="d-flex flex-row align-items-center">
-                <a href="" class="fs-6 m-0 cursor-pointer text-decoration-none text-light">Pay Now</a>
+                <a href="" class="m-0 cursor-pointer text-decoration-none text-light" style="font-size: 10px;">Pay Now</a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="card d-flex flex-row mt-3 p-2 mx-2 justify-content-around align-items-center">
+        <img width="30" height="30" src="https://img.icons8.com/?size=100&id=68067&format=png&color=000000" alt="external-visa-an-american-multinational-financial-services-corporation-logo-shadow-tal-revivo" />
+        <p class="m-1 fw-bold">+91******9876</p>
+
+        
+        <div class="card d-flex flex-row align-items-center p-2 bg-black text-white" style="border-radius: 7px; width: auto; height: auto;">
+
+            <div class="d-flex flex-row align-items-center">
+                <a href="" class="m-0 cursor-pointer text-decoration-none text-light" style="font-size: 10px;">Pay Now</a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="card d-flex flex-row mt-3 p-2 mx-2 justify-content-around align-items-center">
+        <img width="30" height="30" src="https://img.icons8.com/?size=100&id=BsiNqIHwKUq8&format=png&color=000000" alt="external-visa-an-american-multinational-financial-services-corporation-logo-shadow-tal-revivo" />
+        <p class="m-1 fw-bold">+91******9876</p>
+
+        
+        <div class="card d-flex flex-row align-items-center p-2 bg-black text-white" style="border-radius: 7px; width: auto; height: auto;">
+
+            <div class="d-flex flex-row align-items-center">
+                <a href="" class="m-0 cursor-pointer text-decoration-none text-light" style="font-size: 10px;">Pay Now</a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+     <div class="card d-flex flex-row mt-3 p-2 mx-2 justify-content-around align-items-center">
+        <img width="30" height="30" src="https://img.icons8.com/?size=100&id=lBLmM0Z5NCBs&format=png&color=000000" alt="external-visa-an-american-multinational-financial-services-corporation-logo-shadow-tal-revivo" />
+        <p class="m-1 fw-bold">Pay Cash</p>
+
+        
+        <div class="card d-flex flex-row align-items-center p-2 bg-black text-white" style=" margin-left:40px; border-radius: 7px; width: auto; height: auto;">
+
+            <div class="d-flex flex-row align-items-center">
+                <a href="" class="m-0 cursor-pointer text-decoration-none text-light" style="font-size: 10px;">Pay Now</a>
             </div>
 
         </div>
